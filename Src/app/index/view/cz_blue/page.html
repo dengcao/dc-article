@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{$category.catname}_{$web_config.site_name}</title>
+  <meta name="keywords" content="{$category.keywords}" />
+  <meta name="description" content="{$category.description}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="__CAOZHA-SKIN__/blue/css/base.css" rel="stylesheet">
+  <link href="__CAOZHA-SKIN__/blue/css/m.css" rel="stylesheet">
+  <script src="__CAOZHA-SKIN__/blue/js/jquery-1.8.3.min.js" ></script>
+  <script src="__CAOZHA-SKIN__/blue/js/main.js"></script>
+  <!--[if lt IE 9]>
+  <script src="__CAOZHA-SKIN__/blue/js/modernizr.js"></script>
+  <![endif]-->
+  <script src="__CAOZHA-SKIN__/blue/js/pagetab.js"></script>
+</head>
+<body>
+<header>
+  <div class="logo-section box">
+    <div class="search">
+      <form action="{:cz_url('index/blog/search')}" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyword" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <div class="logo"><img src="__CAOZHA-SKIN__/blue/images/logo.png">
+      <h2 class="logo-title">{$web_config.site_name}</h2>
+      <p class="logo-text">个人博客，汇集本人创作的文章、小说和程序源码等作品。</p>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="topnav">
+    <h2><a href="/">{$web_config.site_name}</a></h2>
+    <nav>
+      <ul id="starlist">
+        <li><a href="/">首页</a></li>
+        {caozha:category name='menu_cat' fields='catid,catname,url,child' type='' modelid='' parentid='0' child='' ismenu='1' limit='0,10' orderby='' iscache="1"}
+        <li{if $menu_cat.child==1} class="menu"{/if}><a href="{:blog_cat_url($menu_cat.url,$menu_cat.catid)}" >{$menu_cat.catname}</a>
+        {if $menu_cat.child==1}<ul class="sub">{php}$menu_parentid=$menu_cat["catid"];{/php}
+        {caozha:category name='menu_sub' fields='catid,catname,url' type='' modelid='' parentid='$menu_parentid' child='' ismenu='1' limit='0,10' orderby='' iscache="1"}
+        <li><a href="{:blog_cat_url($menu_sub.url,$menu_sub.catid)}" >{$menu_sub.catname}</a></li>
+        {/caozha:category}
+      </ul><span></span>{/if}</li>
+        {/caozha:category}
+      </ul>
+    </nav>
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+  </div>
+  <div class="is-search">
+    <section><i></i>请输入关键字词</section>
+  </div>
+  <div class="search-page">
+    <div class="go-left"></div>
+    <div class="search">
+      <form action="{:cz_url('index/blog/search')}" method="get" name="searchform" id="searchform2">
+        <input name="keyword" id="keyword2" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <div class="clear"></div>
+    <div class="hot-search">
+      <p>热门搜索排行</p>
+      <ul class="search-paihang">
+        <li><a href="{:cz_url('index/blog/search')}?keyword=小说"><i>1</i>小说</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=开源"><i>2</i>开源</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=魂断西域"><i>3</i>魂断西域</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-order"><i>4</i>caozha-order</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-admin"><i>5</i>caozha-admin</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=文学"><i>6</i>文学</a></li>
+      </ul>
+    </div>
+    <div class="new-search">
+      <p>最新搜索排行</p>
+      <ul class="search-paihang">
+        <li><a href="{:cz_url('index/blog/search')}?keyword=小说"><i>1</i>小说</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=开源"><i>2</i>开源</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=魂断西域"><i>3</i>魂断西域</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-order"><i>4</i>caozha-order</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-admin"><i>5</i>caozha-admin</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=文学"><i>6</i>文学</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<div class="clear blank"></div>
+<article>
+  <div class="page whitebg">
+    <div class="page-title" id="pageContents">
+      <ul>
+        {php}
+        if ($category["child"]==1){
+        $parentid=$category["catid"];
+        }else{
+        $parentid=$category["parentid"];
+        if($parentid==0){
+        $parentid=-1;
+        }
+        }
+        {/php}
+        {caozha:category name='cat' fields='catid,catname,url' type='' modelid='' parentid='$parentid' child='' ismenu='1' limit='0,6' orderby='' iscache="1"}
+        <li><a href="{:blog_cat_url($cat.url,$cat.catid)}">{$cat.catname}</a></li>
+        {/caozha:category}
+      </ul>
+    </div>
+    <div class="page-box">
+      <h2 class="page-box-title">{$category.catname}</h2>
+      <div class="page-box-content cz-page-box-content">
+        {$category.content|raw|stripslashes}
+      </div>
+    </div>
+  </div>
+</article>
+<div class="clear blank"></div>
+<footer>
+  <div class="footer box">
+    <div class="wxbox">
+      <ul>
+        <li><img src="__CAOZHA-SKIN__/blue/images/wxgzh.png"><span>邓草公众号</span></li>
+        <li><img src="__CAOZHA-SKIN__/blue/images/weibo.png"><span>邓草微博</span></li>
+      </ul>
+    </div>
+    <div class="endnav">
+      {$web_config.site_footer|raw|stripslashes}
+    </div>
+  </div>
+</footer>
+<div class="toolbar-open"></div>
+<div class="toolbar">
+  <div class="toolbar-close"><span id="closed"></span></div>
+  <div class="toolbar-nav">
+    <ul id="toolbar-menu">
+      <li><i class="side-icon-user"></i>
+        <section>
+          <div class="userinfo">
+            暂不提供会员服务。
+          </div>
+        </section>
+      </li>
+
+      {php}/*
+      <li><i class="side-icon-qq"></i>
+        <section class="qq-section">
+          <div class="qqinfo"><a href="https://jq.qq.com/?_wv=1027&k=5EH6xZg">前端设计交流群①</a><a href="https://jq.qq.com/?_wv=1027&k=52fM36y">前端设计交流群②</a><a href="http://wpa.qq.com/msgrd?v=3&uin=476847113&site=qq&menu=yes">站长QQ</a></div>
+        </section>
+      </li>
+      */{/php}
+
+      <li><i class="side-icon-weixin"></i>
+        <section class="weixin-section">
+          <div class="weixin-info">
+            <img src="__CAOZHA-SKIN__/blue/images/wxgzh.png">
+            <p>扫码关注邓草公众号</p>
+          </div>
+        </section>
+      </li>
+
+      <li><i class="side-icon-dashang"></i>
+        <section class="dashang-section">
+          <p>如果您觉得邓草很棒，可以通过扫码支付打赏哦！</p>
+          <ul>
+            <li><img src="__CAOZHA-SKIN__/blue/images/wxsk.png">微信收款码</li>
+            <li><img src="__CAOZHA-SKIN__/blue/images/zfbsk.png">支付宝收款码</li>
+          </ul>
+        </section>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div class="endmenu">
+  <ul>
+    <li><a href="/"><i class="iconfont icon-shouye"></i>首页</a></li>
+    <li><a href="{:cz_url('/index/blog/cat')}"><i class="iconfont icon-fenlei"></i>分类</a></li>
+    <li><a href="{:cz_url('/index/blog/new')}"><i class="iconfont icon-navicon-wzgl"></i>最新</a></li>
+    <li><a href="/list/17"><i class="iconfont icon-My"></i>关于</a></li>
+  </ul>
+</div>
+<a href="#" title="返回顶部" class="icon-top"></a>
+</body>
+</html>

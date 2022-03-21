@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{$web_config.index_title}</title>
+  <meta name="keywords" content="{$web_config.index_keywords}" />
+  <meta name="description" content="{$web_config.index_description}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="__CAOZHA-SKIN__/blue/css/base.css" rel="stylesheet">
+  <link href="__CAOZHA-SKIN__/blue/css/m.css" rel="stylesheet">
+  <script src="__CAOZHA-SKIN__/blue/js/jquery-1.8.3.min.js" ></script>
+  <script src="__CAOZHA-SKIN__/blue/js/main.js"></script>
+  <!--[if lt IE 9]>
+  <script src="__CAOZHA-SKIN__/blue/js/modernizr.js"></script>
+  <![endif]-->
+  <!-- banner-->
+  <link rel="stylesheet" href="__CAOZHA-SKIN__/blue/css/swiper.min.css">
+  <script src="__CAOZHA-SKIN__/blue/js/swiper.min.js"></script>
+  <script src="__CAOZHA-SKIN__/blue/js/banner.js"></script>
+</head>
+<body>
+<header>
+  <div class="logo-section box">
+    <div class="search">
+      <form action="{:cz_url('index/blog/search')}" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyword" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <div class="logo"><img src="__CAOZHA-SKIN__/blue/images/logo.png">
+      <h2 class="logo-title">{$web_config.site_name}</h2>
+      <p class="logo-text">个人博客，汇集本人创作的文章、小说和程序源码等作品。</p>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="topnav">
+    <h2><a href="/">{$web_config.site_name}</a></h2>
+    <nav>
+      <ul id="starlist">
+        <li><a href="/">首页</a></li>
+        {caozha:category name='menu_cat' fields='catid,catname,url,child' type='' modelid='' parentid='0' child='' ismenu='1' limit='0,10' orderby='' iscache="1"}
+        <li{if $menu_cat.child==1} class="menu"{/if}><a href="{:blog_cat_url($menu_cat.url,$menu_cat.catid)}" >{$menu_cat.catname}</a>
+        {if $menu_cat.child==1}<ul class="sub">{php}$menu_parentid=$menu_cat["catid"];{/php}
+        {caozha:category name='menu_sub' fields='catid,catname,url' type='' modelid='' parentid='$menu_parentid' child='' ismenu='1' limit='0,10' orderby='' iscache="1"}
+        <li><a href="{:blog_cat_url($menu_sub.url,$menu_sub.catid)}" >{$menu_sub.catname}</a></li>
+        {/caozha:category}
+      </ul><span></span>{/if}</li>
+        {/caozha:category}
+      </ul>
+    </nav>
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+  </div>
+  <div class="is-search">
+    <section><i></i>请输入关键字词</section>
+  </div>
+  <div class="search-page">
+    <div class="go-left"></div>
+    <div class="search">
+      <form action="{:cz_url('index/blog/search')}" method="get" name="searchform" id="searchform2">
+        <input name="keyword" id="keyword2" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <div class="clear"></div>
+    <div class="hot-search">
+      <p>热门搜索排行</p>
+      <ul class="search-paihang">
+        <li><a href="{:cz_url('index/blog/search')}?keyword=小说"><i>1</i>小说</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=开源"><i>2</i>开源</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=魂断西域"><i>3</i>魂断西域</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-order"><i>4</i>caozha-order</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-admin"><i>5</i>caozha-admin</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=文学"><i>6</i>文学</a></li>
+      </ul>
+    </div>
+    <div class="new-search">
+      <p>最新搜索排行</p>
+      <ul class="search-paihang">
+        <li><a href="{:cz_url('index/blog/search')}?keyword=小说"><i>1</i>小说</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=开源"><i>2</i>开源</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=魂断西域"><i>3</i>魂断西域</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-order"><i>4</i>caozha-order</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=caozha-admin"><i>5</i>caozha-admin</a></li>
+        <li><a href="{:cz_url('index/blog/search')}?keyword=文学"><i>6</i>文学</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<div class="clear blank"></div>
+<article>
+  <!-- banner begin-->
+  <div class="banner">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide"><a href="/list/8"><img src="__CAOZHA-SKIN__/blue/images/banner1.jpg"><span>开源项目</span></a></div>
+
+        <div class="swiper-slide"><a href="/list/2"><img src="__CAOZHA-SKIN__/blue/images/banner2.jpg"><span>散文随笔</span></a></div>
+
+        <div class="swiper-slide"><a href="/list/14"><img src="__CAOZHA-SKIN__/blue/images/banner3.jpg"><span>名家名作</span></a></div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+  <!-- banner end-->
+  <!-- headline-boc begin-->
+  <div class="headline-box whitebg">
+    <div class="headline-news">
+      {caozha:article name='art' fields='id,title,description,url' islink='0' isreco='1' limit='0,1' iscache="1"}
+      <h2 class="headline-news-title"><span>推荐</span><a href="{:blog_url($art.url,$art.id)}" target="_blank">{$art.title}</a></h2>
+      <p class="headline-news-smalltext">{$art.description}</p>
+      {/caozha:article}
+
+      <ul class="headline-news-list">
+        {caozha:article name='art' fields='id,title,url' islink='0' isreco='1' limit='1,6' iscache="1"}
+        <li><a href="{:blog_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/caozha:article}
+      </ul>
+    </div>
+  </div>
+  <!-- headline-box end-->
+  <div class="clear blank"></div>
+  <div class="tuijian-news box whitebg tab-num01">
+    <div class="gd-box">
+      <ul id="tab">
+        <li class="tab-current">短篇小说</li>
+        <li>博客日记</li>
+      </ul>
+    </div>
+    <div id="tab-content">
+
+      <section class="tab-box">
+        <div class="news-zuixin">
+          <ul>
+            {caozha:article name='art' fields='id,title,thumb,url,description,tags' catid='3' isthumb="1" islink='0' limit='0,8' iscache="1"}
+            <li>
+              <section><a href="{:blog_url($art.url,$art.id)}" class="news-zuixin-pic"><img src="{$art.thumb}"></a>
+                <h2><a href="{:blog_url($art.url,$art.id)}">{$art.title}</a></h2>
+                <p>{$art.description}</p>
+                <span>{php}
+              if($art["tags"]){
+              $tags_arr=explode(",",$art["tags"]);
+              foreach ($tags_arr as $value){
+              echo "<a href='".cz_url("index/blog/search")."?keyword=".$value."' target='_blank'>".$value."</a> ";
+              }}
+              {/php}</span></section>
+            </li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/3" title="更多短篇小说"><i></i><i></i><i></i></a></span></section>
+
+      <section class="tab-box">
+        {caozha:article name='art' fields='id,title,thumb,url,description' catid='1' isthumb="1" islink='0' limit='0,1' iscache="1"}
+        <div class="tuijian-news-pic"><i><a href="{:blog_url($art.url,$art.id)}"><img src="{$art.thumb}"><span>推荐</span></a></i>
+          <h2><a href="{:blog_url($art.url,$art.id)}">{$art.title}</a></h2>
+          <p>{$art.description}</p>
+          <a href="{:blog_url($art.url,$art.id)}" class="btn-blue-border">阅读更多</a> </div>
+        {/caozha:article}
+
+        <div class="tuijian-news-list">
+          <ul>
+            {caozha:article name='art' fields='id,title,url,description,inputtime' catid='1' islink='0' limit='1,6' iscache="1"}
+            <li><a target="_blank" href="{:blog_url($art.url,$art.id)}"><span><b>{:date("d",strtotime($art.inputtime))}</b>{:date("Y-m",strtotime($art.inputtime))}</span>
+              <h3>{$art.title}</h3>
+              <p>{$art.description}</p>
+            </a></li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/1" title="更多博客日记"><i></i><i></i><i></i></a></span></section>
+
+    </div>
+  </div>
+  <!-- tuijian-news end-->
+
+  <!-- pics end-->
+  <div class="clear blank"></div>
+
+  <div class="news box whitebg tab-num03">
+    <div class="gd-box">
+      <ul id="tab">
+        <li class="tab-current">名家名作</li>
+        <li>读书笔记</li>
+
+      </ul>
+    </div>
+    <div id="tab-content">
+
+      <section class="tab-box">
+        <div class="news-zuixin">
+          <ul>
+            {caozha:article name='art' fields='id,title,thumb,url,description,tags' catid='14' isthumb="1" islink='0' limit='0,8' iscache="1"}
+            <li>
+              <section><a href="{:blog_url($art.url,$art.id)}" class="news-zuixin-pic"><img src="{$art.thumb}"></a>
+                <h2><a href="{:blog_url($art.url,$art.id)}">{$art.title}</a></h2>
+                <p>{$art.description}</p>
+                <span>{php}
+              if($art["tags"]){
+              $tags_arr=explode(",",$art["tags"]);
+              foreach ($tags_arr as $value){
+              echo "<a href='".cz_url("index/blog/search")."?keyword=".$value."' target='_blank'>".$value."</a> ";
+              }}
+              {/php}</span></section>
+            </li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/14" title="更多名家名作"><i></i><i></i><i></i></a></span></section>
+
+      <section class="tab-box">
+        <div class="news-zuixin">
+          <ul>
+            {caozha:article name='art' fields='id,title,thumb,url,description,tags' catid='13' isthumb="1" islink='0' limit='0,8' iscache="1"}
+            <li>
+              <section><a href="{:blog_url($art.url,$art.id)}" class="news-zuixin-pic"><img src="{$art.thumb}"></a>
+                <h2><a href="{:blog_url($art.url,$art.id)}">{$art.title}</a></h2>
+                <p>{$art.description}</p>
+                <span>{php}
+              if($art["tags"]){
+              $tags_arr=explode(",",$art["tags"]);
+              foreach ($tags_arr as $value){
+              echo "<a href='".cz_url("index/blog/search")."?keyword=".$value."' target='_blank'>".$value."</a> ";
+              }}
+              {/php}</span></section>
+            </li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/13" title="更多读书笔记"><i></i><i></i><i></i></a></span></section>
+
+      <!--第一个数字11，是父栏目ID-->
+    </div>
+  </div>
+  <!-- news end-->
+
+  <!-- videos end-->
+  <div class="blank clear"></div>
+
+  <div class="wenzi whitebg box tab-num05">
+    <div class="gd-box">
+      <ul id="tab">
+        <li class="tab-current">童话故事</li>
+        <li>散文随笔</li>
+
+      </ul>
+    </div>
+    <div id="tab-content">
+
+      <section class="tab-box">
+        <div class="wenzi-list">
+          <ul class="wenzi-left">
+            {caozha:article name='art' fields='id,title,url,inputtime' catid='6' islink='0' limit='0,8' iscache="1"}
+            <li><span>{:date("Y-m-d",strtotime($art.inputtime))}</span><a href="{:blog_url($art.url,$art.id)}">[{$art.cat_catname}] {$art.title}</a></li>
+            {/caozha:article}
+          </ul>
+          <ul class="wenzi-right">
+            {caozha:article name='art' fields='id,title,url,inputtime' catid='6' islink='0' limit='8,8' iscache="1"}
+            <li><span>{:date("Y-m-d",strtotime($art.inputtime))}</span><a href="{:blog_url($art.url,$art.id)}">[{$art.cat_catname}] {$art.title}</a></li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/6" title="更多童话故事"><i></i><i></i><i></i></a></span></section>
+
+      <section class="tab-box">
+        <div class="news-zuixin">
+          <ul>
+            {caozha:article name='art' fields='id,title,thumb,url,description,tags' catid='2' isthumb="1" islink='0' limit='0,8' iscache="1"}
+            <li>
+              <section><a href="{:blog_url($art.url,$art.id)}" class="news-zuixin-pic"><img src="{$art.thumb}"></a>
+                <h2><a href="{:blog_url($art.url,$art.id)}">{$art.title}</a></h2>
+                <p>{$art.description}</p>
+                <span>{php}
+              if($art["tags"]){
+              $tags_arr=explode(",",$art["tags"]);
+              foreach ($tags_arr as $value){
+              echo "<a href='".cz_url("index/blog/search")."?keyword=".$value."' target='_blank'>".$value."</a> ";
+              }}
+              {/php}</span></section>
+            </li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/2" title="更多散文随笔"><i></i><i></i><i></i></a></span></section>
+
+    </div>
+  </div>
+  <!-- wenzi end-->
+  <div class="clear"></div>
+  <!--div class="ad ad-all">广告</div-->
+
+  <div class="wenzi whitebg box tab-num06" style="margin-top: 20px;">
+    <div class="gd-box">
+      <ul id="tab">
+        <li class="tab-current">开源项目</li>
+        <li>技术分享</li>
+
+      </ul>
+    </div>
+    <div id="tab-content">
+
+      <section class="tab-box">
+        <div class="down-list">
+          <ul>
+            {caozha:article name='art' fields='id,title,thumb,url,description' catid='8' isthumb="1" orderby='listorder desc,inputtime desc,id desc' islink='0' limit='0,9' iscache="1"}
+            <li><a href="{:blog_url($art.url,$art.id)}" target="_blank" class="dl-link"><i><img src="{$art.thumb}" ></i>
+              <h2>{$art.title}</h2>
+              <p>{$art.description}</p>
+            </a><a href="{:blog_url($art.url,$art.id)}" target="_blank" class="d-list-hover"><em>查看</em></a></li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/8" title="更多开源项目"><i></i><i></i><i></i></a></span></section>
+
+      <section class="tab-box">
+        <div class="wenzi-list">
+          <ul class="wenzi-left">
+            {caozha:article name='art' fields='id,title,url,inputtime' catid='7' islink='0' limit='0,8' iscache="1"}
+            <li><span>{:date("Y-m-d",strtotime($art.inputtime))}</span><a href="{:blog_url($art.url,$art.id)}">[{$art.cat_catname}] {$art.title}</a></li>
+            {/caozha:article}
+          </ul>
+          <ul class="wenzi-right">
+            {caozha:article name='art' fields='id,title,url,inputtime' catid='7' islink='0' limit='8,8' iscache="1"}
+            <li><span>{:date("Y-m-d",strtotime($art.inputtime))}</span><a href="{:blog_url($art.url,$art.id)}">[{$art.cat_catname}] {$art.title}</a></li>
+            {/caozha:article}
+          </ul>
+        </div>
+        <span class="tab-a-more"><a href="/list/7" title="更多技术分享"><i></i><i></i><i></i></a></span></section>
+
+    </div>
+  </div>
+
+  <!-- tags end-->
+  <div class="blank clear"></div>
+  <div class="links whitebg box ">
+    <div class="news-title">
+      <h2>友情链接</h2>
+    </div>
+    <ul>
+      {caozha:get name='list' fields='link_name,link_url' datatable='links' where='status=1' limit='0,100' orderby='listorder desc,id asc' iscache="1"}
+      <li><a href="{$list.link_url}" target="_blank">{$list.link_name}</a></li>
+      {/caozha:get}
+    </ul>
+  </div>
+  <!-- links end-->
+  <div class="blank clear"></div>
+</article>
+<footer>
+  <div class="footer box">
+    <div class="wxbox">
+      <ul>
+        <li><img src="__CAOZHA-SKIN__/blue/images/wxgzh.png"><span>邓草公众号</span></li>
+        <li><img src="__CAOZHA-SKIN__/blue/images/weibo.png"><span>邓草微博</span></li>
+      </ul>
+    </div>
+    <div class="endnav">
+      {$web_config.site_footer|raw|stripslashes}
+    </div>
+  </div>
+</footer>
+<div class="toolbar-open"></div>
+<div class="toolbar">
+  <div class="toolbar-close"><span id="closed"></span></div>
+  <div class="toolbar-nav">
+    <ul id="toolbar-menu">
+      <li><i class="side-icon-user"></i>
+        <section>
+          <div class="userinfo">
+            暂不提供会员服务。
+          </div>
+        </section>
+      </li>
+
+      {php}/*
+      <li><i class="side-icon-qq"></i>
+        <section class="qq-section">
+          <div class="qqinfo"><a href="https://jq.qq.com/?_wv=1027&k=5EH6xZg">前端设计交流群①</a><a href="https://jq.qq.com/?_wv=1027&k=52fM36y">前端设计交流群②</a><a href="http://wpa.qq.com/msgrd?v=3&uin=476847113&site=qq&menu=yes">站长QQ</a></div>
+        </section>
+      </li>
+      */{/php}
+
+      <li><i class="side-icon-weixin"></i>
+        <section class="weixin-section">
+          <div class="weixin-info">
+            <img src="__CAOZHA-SKIN__/blue/images/wxgzh.png">
+            <p>扫码关注邓草公众号</p>
+          </div>
+        </section>
+      </li>
+      <li><i class="side-icon-dashang"></i>
+        <section class="dashang-section">
+          <p>如果您觉得邓草很棒，可以通过扫码支付打赏哦！</p>
+          <ul>
+            <li><img src="__CAOZHA-SKIN__/blue/images/wxsk.png">微信收款码</li>
+            <li><img src="__CAOZHA-SKIN__/blue/images/zfbsk.png">支付宝收款码</li>
+          </ul>
+        </section>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div class="endmenu">
+  <ul>
+    <li><a href="/"><i class="iconfont icon-shouye"></i>首页</a></li>
+    <li><a href="{:cz_url('/index/blog/cat')}"><i class="iconfont icon-fenlei"></i>分类</a></li>
+    <li><a href="{:cz_url('/index/blog/new')}"><i class="iconfont icon-navicon-wzgl"></i>最新</a></li>
+    <li><a href="/list/17"><i class="iconfont icon-My"></i>关于</a></li>
+  </ul>
+</div>
+<a href="#" title="返回顶部" class="icon-top"></a>
+</body>
+</html>

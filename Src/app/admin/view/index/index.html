@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="__CAOZHA-STATIC__/logo/favicon.ico">
-    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/css/layuimini.css?v=2.0.4" media="all">
     <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/css/themes/default.css" media="all">
     <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
@@ -25,7 +25,6 @@
     <style id="layuimini-bg-color">
     </style>
     <script src="__CAOZHA-STATIC__/js/jquery-3.4.1.min.js"></script>
-    <script src="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
     <script src="__CAOZHA-STATIC__/js/all.js"></script>
     <link rel="stylesheet" href="__CAOZHA-STATIC__/css/style.css" media="all">
 </head>
@@ -132,15 +131,18 @@
 
     </div>
 </div>
+<script src="__CAOZHA-LAYUIMINI__/lib/layui/layui.js" charset="utf-8"></script>
 <script src="__CAOZHA-LAYUIMINI__/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script>
     layui.use(['jquery', 'layer', 'miniAdmin'], function () {
         var layer = layui.layer,
             miniAdmin = layui.miniAdmin;
 
+            layer_skin(layer);
+
         var options = {
-            iniUrl: "{:cz_url(\'admin/index/czInit\')}",    // 初始化接口
-            clearUrl: "{:cz_url(\'admin/index/cacheClear\')}", // 缓存清理接口
+            iniUrl: "{:url(\'admin/index/czInit\')}",    // 初始化接口
+            clearUrl: "{:url(\'admin/index/cacheClear\')}", // 缓存清理接口
             urlHashLocation: true,      // 是否打开hash定位
             bgColorDefault: layuimini_bgColorDefault, // 主题默认配置
             multiModule: true,          // 是否开启多模块
@@ -152,7 +154,7 @@
         miniAdmin.render(options);
 
         $('.login-out').on("click", function () {
-            window.location = '{:cz_url(\'admin/index/logout\')}';
+            window.location = '{:url(\'admin/index/logout\')}';
         });
 
         $('#mine_view').on("click", function () {
@@ -162,7 +164,7 @@
                 shade: 0.2,
                 maxmin: true,
                 area: ['580px', '75%'],
-                content: '{:cz_url(\'admin/mine/view\')}',
+                content: '{:url(\'admin/mine/view\')}',
             });
         });
 
@@ -173,7 +175,7 @@
                 shade: 0.2,
                 maxmin: true,
                 area: ['580px', '75%'],
-                content: '{:cz_url(\'admin/mine/modify\')}',
+                content: '{:url(\'admin/mine/modify\')}',
             });
         });
 

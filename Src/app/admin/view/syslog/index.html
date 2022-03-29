@@ -6,10 +6,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/css/public.css" media="all">
     <script src="__CAOZHA-STATIC__/js/jquery-3.4.1.min.js"></script>
-    <script src="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="__CAOZHA-LAYUIMINI__/lib/layui/layui.js" charset="utf-8"></script>
     <script src="__CAOZHA-STATIC__/js/all.js"></script>
     <link rel="stylesheet" href="__CAOZHA-STATIC__/css/style.css" media="all">
 </head>
@@ -41,7 +41,7 @@
 
     </div>
 </div>
-<script src="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="__CAOZHA-LAYUIMINI__/lib/layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form', 'table'], function () {
         var form = layui.form,
@@ -51,7 +51,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '{:cz_url(\'admin/syslog/get\')}',
+            url: '{:dc_url(\'admin/syslog/get\')}',
             parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": "0", //解析接口状态 res.status
@@ -111,7 +111,7 @@
 
                     $.ajax({
                         type: "post",
-                        url: '{:cz_url(\'admin/syslog/delete\')}',
+                        url: '{:dc_url(\'admin/syslog/delete\')}',
                         data: {log_id:log_id_str},
                         dataType: "json",
                         async:false,
@@ -141,7 +141,7 @@
 
                     $.ajax({
                         type: "post",
-                        url: '{:cz_url(\'admin/syslog/deleteAll\')}',
+                        url: '{:dc_url(\'admin/syslog/deleteAll\')}',
                         data: "",
                         dataType: "json",
                         async:false,
@@ -175,7 +175,7 @@
 
             //执行搜索重载
             table.reload('currentTableId', {
-                //url: '{:cz_url(\'admin/syslog/get\')}',
+                //url: '{:dc_url(\'admin/syslog/get\')}',
                 page: {
                     curr: 1
                 }
@@ -204,7 +204,7 @@
                 maxmin: true,
                 shadeClose: true,
                 area: ['50%', '60%'],
-                content: '{:cz_url(\'admin/syslog/view\')}?log_id='+data.log_id,
+                content: '{:dc_url(\'admin/syslog/view\')}?log_id='+data.log_id,
             });
 
             return false;

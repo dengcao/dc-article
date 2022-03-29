@@ -37,7 +37,7 @@ GitHub：https://github.com/cao-zha/ueditor
 
 ### 关于开发者
 
-开发：邓草 www.caozha.com
+开发：草札 www.caozha.com
 
 鸣谢：品络 www.pinluo.com  &ensp;  穷店 www.qiongdian.com
 

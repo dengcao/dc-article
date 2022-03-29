@@ -52,7 +52,7 @@ class Index
 //        $total_comment_arr=array();
 //        $total_member_arr=array();
 //        foreach ($total_date_arr2 as $key=>$value){
-//            $total_article_arr[]=\app\admin\model\Blog::whereTime('inputtime', 'between', [$value." 00:00:00",$value." 23:59:59"])->paginate(['list_rows'=> 10])->total();
+//            $total_article_arr[]=\app\admin\model\Article::whereTime('inputtime', 'between', [$value." 00:00:00",$value." 23:59:59"])->paginate(['list_rows'=> 10])->total();
 //            $total_comment_arr[]=\app\admin\model\Comment::whereTime('addtime', 'between', [$value." 00:00:00",$value." 23:59:59"])->paginate(['list_rows'=> 10])->total();
 //            $total_member_arr[]=\app\admin\model\Member::whereTime('regtime', 'between', [$value." 00:00:00",$value." 23:59:59"])->paginate(['list_rows'=> 10])->total();
 //        }
@@ -216,7 +216,7 @@ class Index
         if(isset($_SESSION["caozha_admin_name"])){unset($_SESSION["caozha_admin_name"]);}
         //end
 
-        caozha_success("退出登陆成功！",cz_url("admin/index/login"));
+        caozha_success("退出登陆成功！",dc_url("admin/index/login"));
     }
 
     public function cacheClear()//清空缓存

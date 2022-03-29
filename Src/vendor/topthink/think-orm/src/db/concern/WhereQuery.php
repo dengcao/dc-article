@@ -49,7 +49,7 @@ trait WhereQuery
      */
     protected function parseQueryWhere(BaseQuery $query): void
     {
-        $this->options['where'] = $query->getOptions('where');
+        $this->options['where'] = $query->getOptions('where') ?? [];
 
         if ($query->getOptions('via')) {
             $via = $query->getOptions('via');
@@ -290,11 +290,7 @@ trait WhereQuery
      */
     public function whereExp(string $field, string $where, array $bind = [], string $logic = 'AND')
     {
-        if (!empty($bind)) {
-            $this->bindParams($where, $bind);
-        }
-
-        $this->options['where'][$logic][] = [$field, 'EXP', new Raw($where)];
+        $this->options['where'][$logic][] = [$field, 'EXP', new Raw($where, $bind)];
 
         return $this;
     }
@@ -329,11 +325,7 @@ trait WhereQuery
      */
     public function whereRaw(string $where, array $bind = [], string $logic = 'AND')
     {
-        if (!empty($bind)) {
-            $this->bindParams($where, $bind);
-        }
-
-        $this->options['where'][$logic][] = new Raw($where);
+        $this->options['where'][$logic][] = new Raw($where, $bind);
 
         return $this;
     }
@@ -369,9 +361,7 @@ trait WhereQuery
             $field = $this->options['via'] . '.' . $field;
         }
 
-        if ($field instanceof Raw) {
-            return $this->whereRaw($field, is_array($op) ? $op : [], $logic);
-        } elseif ($strict) {
+        if ($strict) {
             // 使用严格模式查询
             if ('=' == $op) {
                 $where = $this->whereEq($field, $condition);
@@ -386,7 +376,7 @@ trait WhereQuery
         } elseif (is_string($field)) {
             if (preg_match('/[,=\<\'\"\(\s]/', $field)) {
                 return $this->whereRaw($field, is_array($op) ? $op : [], $logic);
-            } elseif (is_string($op) && strtolower($op) == 'exp') {
+            } elseif (is_string($op) && strtolower($op) == 'exp' && !is_null($condition)) {
                 $bind = isset($param[2]) && is_array($param[2]) ? $param[2] : [];
                 return $this->whereExp($field, $condition, $bind, $logic);
             }

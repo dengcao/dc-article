@@ -275,6 +275,48 @@ function template_get($tag)
     }
 }
 
+
+/**
+ * 模板标签库 获取碎片数据
+ * @param json $tag 标签属性
+ * @return string
+ */
+function template_getBlock($tag)
+{
+    $tag = filter_sql_arr(json_decode($tag, true));
+
+    if (empty($tag['marker'])) {
+        return '';
+    }
+    $cz_prefix = config('database.connections.mysql.prefix');//数据表前缀
+    $tag['where'] = " where is_enabled=1 and marker='".$tag['marker']."'";
+
+    //优先读取缓存
+    $cache_id = md5_plus("template_getBlock_" . implode("-", $tag));
+    $template_cache_data = Cache::get($cache_id);
+    if ($tag['iscache'] == 1 && $template_cache_data) {
+        return $template_cache_data;
+    } else {
+
+        $block_content_data="";
+        $list = Db::query("select `content` from `" . $cz_prefix . "block` " . $tag['where'] . " limit 0,1;");
+        foreach ($list as $data) {
+            $block_content_data=$data["content"];
+        }
+        if ($tag['is_decode']==1 && $block_content_data!=""){
+            $block_content_data=html_entity_decode($block_content_data);//HTML实体转换为字符
+        }
+        if ($tag['is_strip']==1 && $block_content_data!=""){
+            $block_content_data=strip_tags($block_content_data,$tag['allow_html']);
+        }
+        $web_config = get_web_config();
+        Cache::set($cache_id, $block_content_data, $web_config["cache_expire"]);
+        return $block_content_data;
+
+    }
+}
+
+
 /**
  * 转换标签属性值为变量
  * @param string attr 属性值
@@ -336,54 +378,54 @@ function get_web_config()
 }
 
 /**
- *转换博文URL
- * @param string url 博文URL链接
- * @param string id 博文ID
+ *转换文章URL
+ * @param string url 文章URL链接
+ * @param string id 文章ID
  * @return string
  */
-function blog_url($url, $id)
+function art_url($url, $id)
 {
     if ($url) {
         return $url;
     } else {
         $web_config = get_web_config();
-        //return $web_config["site_url"] . cz_url('/index/blog/show/id/') . $id;
+        //return $web_config["site_url"] . dc_url('/index/article/show/id/') . $id;
         return $web_config["site_url"] . '/show/' . $id;
     }
 }
 
 /**
- *转换博客分类URL
+ *转换文章分类URL
  * @param string url 分类URL链接
  * @param string catid 分类ID
  * @return string
  */
-function blog_cat_url($url, $catid)
+function art_cat_url($url, $catid)
 {
     if ($url) {
         return $url;
     } else {
         $web_config = get_web_config();
-        //return $web_config["site_url"] . cz_url('/index/blog/list/catid/') . $catid;
+        //return $web_config["site_url"] . dc_url('/index/article/list/catid/') . $catid;
         return $web_config["site_url"] . '/list/' . $catid;
     }
 }
 
 /**
- *获取博客/文章分类导航
+ *获取文章分类导航
  * @param string catid 分类ID
  * @return string
  */
-function blog_get_nav($catid)
+function art_get_nav($catid)
 {
     if (!is_numeric($catid)) {
         return "";
     } else {
         //优先读取缓存
-        $cache_id = md5_plus("blog_get_nav_" . $catid);
-        $blog_get_nav_data = Cache::get($cache_id);
-        if ($blog_get_nav_data) {
-            return $blog_get_nav_data;
+        $cache_id = md5_plus("art_get_nav_" . $catid);
+        $art_get_nav_data = Cache::get($cache_id);
+        if ($art_get_nav_data) {
+            return $art_get_nav_data;
         } else {
 
             $category = categoryModel::where("catid", "=", $catid)->field('arrparentid')->findOrEmpty();
@@ -408,7 +450,7 @@ function blog_get_nav($catid)
 
                 $nav_html="";
                 foreach ($nav_arr as $value) {
-                    $nav_html.=' > <a href="'.blog_cat_url($value["url"],$value["catid"]).'">'.$value["catname"].'</a>';
+                    $nav_html.=' > <a href="'.art_cat_url($value["url"],$value["catid"]).'">'.$value["catname"].'</a>';
                 }
 
                 $web_config = get_web_config();

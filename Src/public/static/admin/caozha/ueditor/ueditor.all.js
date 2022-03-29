@@ -3576,7 +3576,7 @@ var domUtils = dom.domUtils = {
      * @param { String } styleName 需要删除的样式名
      * @example
      * ```html
-     * <span id="test" style="color: red; background: cz_blue;"></span>
+     * <span id="test" style="color: red; background: blue;"></span>
      *
      * <script>
      *
@@ -3584,7 +3584,7 @@ var domUtils = dom.domUtils = {
      *
      *     UE.dom.domUtils.removeStyle( testNode, 'color' );
      *
-     *     //output: background: cz_blue;
+     *     //output: background: blue;
      *     console.log( testNode.style.cssText );
      *
      * </script>
@@ -21630,7 +21630,7 @@ UE.plugins['table'] = function () {
             'onresizestart':'return false',
             'ondragstart':'return false',
             'onselectstart':'return false',
-            style:"background-color:cz_blue;position:absolute;padding:0;margin:0;background-image:none;border:0px none;opacity:0;filter:alpha(opacity=0)"
+            style:"background-color:blue;position:absolute;padding:0;margin:0;background-image:none;border:0px none;opacity:0;filter:alpha(opacity=0)"
         });
         editor.body.appendChild(dragLine);
     }
@@ -21659,12 +21659,12 @@ UE.plugins['table'] = function () {
         switch (state) {
             case "h":
                 css = 'height:' + height + 'px;top:' + (tablePos.y + (caption.length > 0 ? caption[0].offsetHeight : 0)) + 'px;left:' + (cellPos.x + cell.offsetWidth);
-                dragLine.style.cssText = css + 'px;position: absolute;display:block;background-color:cz_blue;width:1px;border:0; color:cz_blue;opacity:.3;filter:alpha(opacity=30)';
+                dragLine.style.cssText = css + 'px;position: absolute;display:block;background-color:blue;width:1px;border:0; color:blue;opacity:.3;filter:alpha(opacity=30)';
                 break;
             case "v":
                 css = 'width:' + width + 'px;left:' + tablePos.x + 'px;top:' + (cellPos.y + cell.offsetHeight );
-                //必须加上border:0和color:cz_blue，否则低版ie不支持背景色显示
-                dragLine.style.cssText = css + 'px;overflow:hidden;position: absolute;display:block;background-color:cz_blue;height:1px;border:0;color:cz_blue;opacity:.2;filter:alpha(opacity=20)';
+                //必须加上border:0和color:blue，否则低版ie不支持背景色显示
+                dragLine.style.cssText = css + 'px;overflow:hidden;position: absolute;display:block;background-color:blue;height:1px;border:0;color:blue;opacity:.2;filter:alpha(opacity=20)';
                 break;
             default:
         }

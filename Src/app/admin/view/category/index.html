@@ -6,10 +6,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/css/public.css" media="all">
     <script src="__CAOZHA-STATIC__/js/jquery-3.4.1.min.js"></script>
-    <script src="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="__CAOZHA-LAYUIMINI__/lib/layui/layui.js" charset="utf-8"></script>
     <script src="__CAOZHA-STATIC__/js/all.js"></script>
     <link rel="stylesheet" href="__CAOZHA-STATIC__/css/style.css" media="all">
 </head>
@@ -20,7 +20,7 @@
             <button type="button" class="layui-btn" id="add">添加顶级分类</button>
             <button type="button" class="layui-btn layui-btn-normal" id="category_repair">修复分类数据</button>
         </div>
-        <form name="myform" class="table_form" action="{:cz_url('admin/category/listorder')}" method="post">
+        <form name="myform" class="table_form" action="{:dc_url('admin/category/listorder')}" method="post">
         <div class="table-list">
             <table width="100%" cellspacing="0" >
                 <thead>
@@ -56,7 +56,7 @@
         $("#category_repair").click(function(){
             $.ajax({
                 type: "post",
-                url: '{:cz_url(\'admin/category/repair\')}',
+                url: '{:dc_url(\'admin/category/repair\')}',
                 data: "",
                 dataType: "json",
                 async: false,
@@ -83,9 +83,9 @@
 
     function todo(type,catid,title){
         if(type=="add"){
-            todo_url='{:cz_url(\'admin/category/add\')}?parentid='+catid;
+            todo_url='{:dc_url(\'admin/category/add\')}?parentid='+catid;
         }else if(type=="edit"){
-            todo_url='{:cz_url(\'admin/category/edit\')}?catid='+catid;
+            todo_url='{:dc_url(\'admin/category/edit\')}?catid='+catid;
         }
         var index = layer.open({
             title: title,
@@ -135,7 +135,7 @@
 
             $.ajax({
                 type: "post",
-                url: '{:cz_url(\'admin/category/delete\')}',
+                url: '{:dc_url(\'admin/category/delete\')}',
                 data: {catid: catid},
                 dataType: "json",
                 async: false,

@@ -1,26 +1,32 @@
 <?php
-/**
- * 源码名：dc-article
- * Copyright © 邓草 （官网：http://caozha.com）
- * 基于木兰宽松许可证 2.0（Mulan PSL v2）免费开源，您可以自由复制、修改、分发或用于商业用途，但需保留作者版权等声明。详见开源协议：http://license.coscl.org.cn/MulanPSL2
- * dc-article (Software Name) is licensed under Mulan PSL v2. Please refer to: http://license.coscl.org.cn/MulanPSL2
- * Github：https://github.com/cao-zha/dc-article   or   Gitee：https://gitee.com/caozha/dc-article
- */
-
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
 
 return [
+    // 应用地址
+    'app_host'         => env('app.host', ''),
+    // 应用的命名空间
+    'app_namespace'    => '',
+    // 是否启用路由
+    'with_route'       => true,
+    // 默认应用
+    'default_app'      => 'index',
+    // 默认时区
+    'default_timezone' => 'Asia/Shanghai',
 
     // 应用映射（自动多应用模式有效）
     'app_map'          => [],
     // 域名绑定（自动多应用模式有效）
-    'domain_bind'      => [
-        'admin.caozha.com' => 'admin',  // 绑定后台域名
-        '*'                => 'index', // 泛域名绑定到index应用
-    ],
+    'domain_bind'      => [],
     // 禁止URL访问的应用列表（自动多应用模式有效）
     'deny_app_list'    => [],
 
+    // 异常页面的模板文件
+    'exception_tmpl'   => app()->getThinkPath() . 'tpl/think_exception.tpl',
+
+    // 错误显示信息,非调试模式有效
+    'error_message'    => '页面错误！请稍后再试～',
+    // 显示错误信息
+    'show_error_msg'   => false,
 ];

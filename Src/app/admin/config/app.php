@@ -66,6 +66,7 @@ return [
         'mine'  =>  array('name'=>'修改自己资料','remarks'=>'可以查看修改自己的资料和密码'),
         'category'  =>  array('name'=>'分类管理','remarks'=>'可以增删改分类'),
         'article'  =>  array('name'=>'文章管理','remarks'=>'可以增删改文章'),
+        'block'  =>  array('name'=>'碎片管理','remarks'=>'可以增删改碎片内容'),
         'member'  =>  array('name'=>'用户管理','remarks'=>'可以增删改用户'),
         'mbr_group'  =>  array('name'=>'用户组管理','remarks'=>'可以增删改用户组'),
         'comment'  =>  array('name'=>'评论管理','remarks'=>'可以管理用户发布的评论'),
@@ -83,7 +84,7 @@ return [
  {
   "homeInfo": {
     "title": "首页",
-    "href": "'.cz_url("admin/index/welcome").'"
+    "href": "'.dc_url("admin/index/welcome").'"
   },
   "logoInfo": {
     "title": "后台管理系统",
@@ -99,7 +100,7 @@ return [
       "child": [      
         {
           "title": "系统设置",
-          "href": "'.cz_url("admin/WebConfig/index").'",
+          "href": "'.dc_url("admin/WebConfig/index").'",
           "icon": "fa fa-gears",
           "target": "_self"
         },
@@ -111,13 +112,13 @@ return [
           "child": [
             {
               "title": "管理员",
-              "href": "'.cz_url("admin/administrators/index").'",
+              "href": "'.dc_url("admin/administrators/index").'",
               "icon": "fa fa-user-circle-o",
               "target": "_self"
             },
             {
               "title": "权限组",
-              "href": "'.cz_url("admin/roles/index").'",
+              "href": "'.dc_url("admin/roles/index").'",
               "icon": "fa fa-users",
               "target": "_self"
             }
@@ -125,13 +126,19 @@ return [
         },
         {
           "title": "分类管理",
-          "href": "'.cz_url("admin/category/index").'",
+          "href": "'.dc_url("admin/category/index").'",
           "icon": "fa fa-th-list",
           "target": "_self"
         },
         {
           "title": "文章管理",
-          "href": "'.cz_url("admin/article/index").'",
+          "href": "'.dc_url("admin/article/index").'",
+          "icon": "fa fa-newspaper-o",
+          "target": "_self"
+        },
+        {
+          "title": "碎片管理",
+          "href": "'.dc_url("admin/block/index").'",
           "icon": "fa fa-newspaper-o",
           "target": "_self"
         },
@@ -143,13 +150,13 @@ return [
           "child": [
             {
               "title": "用户列表",
-              "href": "'.cz_url("admin/member/index").'",
+              "href": "'.dc_url("admin/member/index").'",
               "icon": "fa fa-user-circle-o",
               "target": "_self"
             },
             {
               "title": "用户组",
-              "href": "'.cz_url("admin/MemberGroup/index").'",
+              "href": "'.dc_url("admin/MemberGroup/index").'",
               "icon": "fa fa-users",
               "target": "_self"
             }
@@ -163,13 +170,13 @@ return [
           "child": [
             {
               "title": "评论管理",
-              "href": "'.cz_url("admin/comment/index").'",
+              "href": "'.dc_url("admin/comment/index").'",
               "icon": "fa fa-comment-o",
               "target": "_self"
             },
             {
               "title": "查看评论",
-              "href": "'.cz_url("index/comment/index").'",
+              "href": "'.dc_url("index/comment/index").'",
               "icon": "fa fa-comments-o",
               "target": "_blank"
             }
@@ -177,19 +184,19 @@ return [
         },
         {
           "title": "友情链接",
-          "href": "'.cz_url("admin/links/index").'",
+          "href": "'.dc_url("admin/links/index").'",
           "icon": "fa fa-link",
           "target": "_self"
         },
         {
           "title": "系统日志",
-          "href": "'.cz_url("admin/syslog/index").'",
+          "href": "'.dc_url("admin/syslog/index").'",
           "icon": "fa fa-file-text",
           "target": "_self"
         },
         {
           "title": "后台地图",
-          "href": "'.cz_url("admin/index/menu").'",
+          "href": "'.dc_url("admin/index/menu").'",
           "icon": "fa fa-map-signs",
           "target": "_self"
         }
@@ -209,19 +216,19 @@ return [
           "child": [
             {
               "title": "主页一",
-              "href": "'.cz_url("admin/demo/welcome1").'",
+              "href": "'.dc_url("admin/demo/welcome1").'",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "主页二",
-              "href": "'.cz_url("admin/demo/welcome2").'",
+              "href": "'.dc_url("admin/demo/welcome2").'",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "主页三",
-              "href": "'.cz_url("admin/demo/welcome3").'",
+              "href": "'.dc_url("admin/demo/welcome3").'",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -229,7 +236,7 @@ return [
         },
         {
           "title": "表格示例",
-          "href": "'.cz_url("admin/demo/table").'",
+          "href": "'.dc_url("admin/demo/table").'",
           "icon": "fa fa-file-text",
           "target": "_self"
         },
@@ -241,13 +248,13 @@ return [
           "child": [
             {
               "title": "普通表单",
-              "href": "'.cz_url("admin/demo/form").'",
+              "href": "'.dc_url("admin/demo/form").'",
               "icon": "fa fa-list-alt",
               "target": "_self"
             },
             {
               "title": "分步表单",
-              "href": "'.cz_url("admin/demo/form_step").'",
+              "href": "'.dc_url("admin/demo/form_step").'",
               "icon": "fa fa-navicon",
               "target": "_self"
             }
@@ -261,13 +268,13 @@ return [
           "child": [
             {
               "title": "404页面-1",
-              "href": "'.cz_url("admin/demo/page404_1").'",
+              "href": "'.dc_url("admin/demo/page404_1").'",
               "icon": "fa fa-hourglass-end",
               "target": "_self"
             },
             {
               "title": "404页面-2",
-              "href": "'.cz_url("admin/demo/page404_2").'",
+              "href": "'.dc_url("admin/demo/page404_2").'",
               "icon": "fa fa-hourglass-end",
               "target": "_self"
             }
@@ -281,44 +288,44 @@ return [
           "child": [
             {
               "title": "按钮示例",
-              "href": "'.cz_url("admin/demo/button").'",
+              "href": "'.dc_url("admin/demo/button").'",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
             {
               "title": "弹出层",
-              "href": "'.cz_url("admin/demo/layer").'",
+              "href": "'.dc_url("admin/demo/layer").'",
               "icon": "fa fa-shield",
               "target": "_self"
             }
           ]
         }, {
           "title": "日期时间选择",
-          "href": "'.cz_url("admin/demo/laydate").'",
+          "href": "'.dc_url("admin/demo/laydate").'",
           "icon": "fa fa-calendar",
           "target": "_self"
         },
         {
           "title": "图标列表",
-          "href": "'.cz_url("admin/demo/icon").'",
+          "href": "'.dc_url("admin/demo/icon").'",
           "icon": "fa fa-dot-circle-o",
           "target": "_self"
         },
         {
           "title": "图标选择",
-          "href": "'.cz_url("admin/demo/icon_picker").'",
+          "href": "'.dc_url("admin/demo/icon_picker").'",
           "icon": "fa fa-adn",
           "target": "_self"
         },
         {
           "title": "颜色选择",
-          "href": "'.cz_url("admin/demo/color_select").'",
+          "href": "'.dc_url("admin/demo/color_select").'",
           "icon": "fa fa-dashboard",
           "target": "_self"
         },
         {
           "title": "下拉选择",
-          "href": "'.cz_url("admin/demo/table_select").'",
+          "href": "'.dc_url("admin/demo/table_select").'",
           "icon": "fa fa-angle-double-down",
           "target": "_self"
         },
@@ -336,7 +343,7 @@ return [
             },
             {
               "title": "zyupload",
-              "href": "'.cz_url("admin/demo/upload").'",
+              "href": "'.dc_url("admin/demo/upload").'",
               "icon": "fa fa-shield",
               "target": "_self"
             }
@@ -350,13 +357,13 @@ return [
           "child": [
             {
               "title": "百度UEditor",
-              "href": "'.cz_url("admin/demo/ueditor").'",
+              "href": "'.dc_url("admin/demo/ueditor").'",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
             {
               "title": "wangEditor",
-              "href": "'.cz_url("admin/demo/editor").'",
+              "href": "'.dc_url("admin/demo/editor").'",
               "icon": "fa fa-shield",
               "target": "_self"
             }
@@ -364,7 +371,7 @@ return [
         },
         {
           "title": "省市县区选择器",
-          "href": "'.cz_url("admin/demo/area").'",
+          "href": "'.dc_url("admin/demo/area").'",
           "icon": "fa fa-rocket",
           "target": "_self"
         },
@@ -376,25 +383,25 @@ return [
           "child": [
             {
               "title": "按钮1",
-              "href": "'.cz_url("admin/demo/button").'?v=1",
+              "href": "'.dc_url("admin/demo/button").'?v=1",
               "icon": "fa fa-calendar",
               "target": "_self",
               "child": [
                 {
                   "title": "按钮2",
-                  "href": "'.cz_url("admin/demo/button").'?v=2",
+                  "href": "'.dc_url("admin/demo/button").'?v=2",
                   "icon": "fa fa-snowflake-o",
                   "target": "_self",
                   "child": [
                     {
                       "title": "按钮3",
-                      "href": "'.cz_url("admin/demo/button").'?v=3",
+                      "href": "'.dc_url("admin/demo/button").'?v=3",
                       "icon": "fa fa-snowflake-o",
                       "target": "_self"
                     },
                     {
                       "title": "表单4",
-                      "href": "'.cz_url("admin/demo/form").'?v=1",
+                      "href": "'.dc_url("admin/demo/form").'?v=1",
                       "icon": "fa fa-calendar",
                       "target": "_self"
                     }
@@ -406,7 +413,7 @@ return [
         },
         {
           "title": "失效菜单",
-          "href": "'.cz_url("admin/demo/page404_2").'",
+          "href": "'.dc_url("admin/demo/page404_2").'",
           "icon": "fa fa-superpowers",
           "target": "_self"
         }

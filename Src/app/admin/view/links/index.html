@@ -6,10 +6,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__CAOZHA-LAYUIMINI__/css/public.css" media="all">
     <script src="__CAOZHA-STATIC__/js/jquery-3.4.1.min.js"></script>
-    <script src="__CAOZHA-LAYUIMINI__/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="__CAOZHA-LAYUIMINI__/lib/layui/layui.js" charset="utf-8"></script>
     <script src="__CAOZHA-STATIC__/js/all.js"></script>
     <link rel="stylesheet" href="__CAOZHA-STATIC__/css/style.css" media="all">
 </head>
@@ -52,7 +52,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '{:cz_url(\'admin/links/get\')}',
+            url: '{:dc_url(\'admin/links/get\')}',
             parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": "0", //解析接口状态 res.status
@@ -122,7 +122,7 @@
 
                     $.ajax({
                         type: "post",
-                        url: '{:cz_url(\'admin/links/delete\')}',
+                        url: '{:dc_url(\'admin/links/delete\')}',
                         data: {id: links_id_str},
                         dataType: "json",
                         async: false,
@@ -156,7 +156,7 @@
                     btnAlign: 'c',
                     resize:true,//允许拉伸
                     area: ['580px', '65%'],
-                    content: '{:cz_url(\'admin/links/add\')}',
+                    content: '{:dc_url(\'admin/links/add\')}',
                     yes: function(index, layero){
                         //按钮【按钮一】的回调
 
@@ -226,7 +226,7 @@
                 maxmin: true,
                 shadeClose: true,
                 area: ['580px', '85%'],
-                content: '{:cz_url(\'admin/links/view\')}?id='+links_data.id,
+                content: '{:dc_url(\'admin/links/view\')}?id='+links_data.id,
             });
 
             return false;
@@ -249,7 +249,7 @@
                     btnAlign: 'c',
                     resize:true,//允许拉伸
                     area: ['580px', '65%'],
-                    content: '{:cz_url(\'admin/links/edit\')}?id='+links_data.id,
+                    content: '{:dc_url(\'admin/links/edit\')}?id='+links_data.id,
                     yes: function(index, layero){
                         //按钮【按钮一】的回调
 
@@ -286,7 +286,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['580px', '65%'],
-                    content: '{:cz_url(\'admin/links/view\')}?id='+links_data.id,
+                    content: '{:dc_url(\'admin/links/view\')}?id='+links_data.id,
                 });
                 return false;
 

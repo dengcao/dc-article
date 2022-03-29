@@ -275,7 +275,6 @@ layui.define(["jquery", "layer"], function (exports) {
             var bgcolorId = sessionStorage.getItem('layuiminiBgcolorId');
             if (bgcolorId === null || bgcolorId === undefined || bgcolorId === '') {
                 bgcolorId = options.bgColorDefault;
-                sessionStorage.setItem('layuiminiBgcolorId', bgcolorId);
             }
             miniTheme.buildThemeCss(bgcolorId);
             if (options.listen) miniTheme.listen(options);
@@ -405,7 +404,7 @@ layui.define(["jquery", "layer"], function (exports) {
                 } else {
                     html += '<li  data-select-bgcolor="' + key + '">\n';
                 }
-                html += '<a href="javascript:;" data-skin="skin-cz_blue" style="" class="clearfix full-opacity-hover">\n' +
+                html += '<a href="javascript:;" data-skin="skin-blue" style="" class="clearfix full-opacity-hover">\n' +
                     '<div><span style="display:block; width: 20%; float: left; height: 12px; background: ' + val.headerLogoBg + ';"></span><span style="display:block; width: 80%; float: left; height: 12px; background: ' + val.headerRightBg + ';"></span></div>\n' +
                     '<div><span style="display:block; width: 20%; float: left; height: 40px; background: ' + val.leftMenuBg + ';"></span><span style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span></div>\n' +
                     '</a>\n' +

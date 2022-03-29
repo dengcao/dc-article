@@ -12,16 +12,37 @@ declare (strict_types = 1);
 
 namespace think\db\concern;
 
+use Closure;
 use think\Collection;
 use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
+use think\db\Query;
 use think\helper\Str;
+use think\Model;
 
 /**
  * 查询数据处理
  */
 trait ResultOperation
 {
+    /**
+     * 设置数据处理（支持模型）
+     * @access public
+     * @param callable $filter 数据处理Callable
+     * @param string   $index  索引（唯一）
+     * @return $this
+     */
+    public function filter(callable $filter, string $index = null)
+    {
+        if ($index) {
+            $this->options['filter'][$index] = $filter;
+        } else {
+            $this->options['filter'][] = $filter;
+        }
+        return $this;
+    }
+
     /**
      * 是否允许返回空数据（或空模型）
      * @access public
@@ -54,65 +75,38 @@ trait ResultOperation
      */
     protected function result(array &$result): void
     {
+        // JSON数据处理
         if (!empty($this->options['json'])) {
-            $this->jsonResult($result, $this->options['json'], true);
+            $this->jsonResult($result);
         }
 
+        // 查询数据处理
+        foreach ($this->options['filter'] as $filter) {
+            $result = call_user_func_array($filter, [$result, $this->options]);
+        }
+
+        // 获取器
         if (!empty($this->options['with_attr'])) {
             $this->getResultAttr($result, $this->options['with_attr']);
         }
-
-        $this->filterResult($result);
     }
 
     /**
      * 处理数据集
      * @access public
      * @param array $resultSet 数据集
+     * @param bool  $toCollection 是否转为对象
      * @return void
      */
-    protected function resultSet(array &$resultSet): void
+    protected function resultSet(array &$resultSet, bool $toCollection = true): void
     {
-        if (!empty($this->options['json'])) {
-            foreach ($resultSet as &$result) {
-                $this->jsonResult($result, $this->options['json'], true);
-            }
-        }
-
-        if (!empty($this->options['with_attr'])) {
-            foreach ($resultSet as &$result) {
-                $this->getResultAttr($result, $this->options['with_attr']);
-            }
-        }
-
-        if (!empty($this->options['visible']) || !empty($this->options['hidden'])) {
-            foreach ($resultSet as &$result) {
-                $this->filterResult($result);
-            }
+        foreach ($resultSet as &$result) {
+            $this->result($result);
         }
 
         // 返回Collection对象
-        $resultSet = new Collection($resultSet);
-    }
-
-    /**
-     * 处理数据的可见和隐藏
-     * @access protected
-     * @param array $result 查询数据
-     * @return void
-     */
-    protected function filterResult(&$result): void
-    {
-        if (!empty($this->options['visible'])) {
-            foreach ($this->options['visible'] as $key) {
-                $array[] = $key;
-            }
-            $result = array_intersect_key($result, array_flip($array));
-        } elseif (!empty($this->options['hidden'])) {
-            foreach ($this->options['hidden'] as $key) {
-                $array[] = $key;
-            }
-            $result = array_diff_key($result, array_flip($array));
+        if ($toCollection) {
+            $resultSet = new Collection($resultSet);
         }
     }
 
@@ -144,7 +138,7 @@ trait ResultOperation
     /**
      * 处理空数据
      * @access protected
-     * @return array|Model|null
+     * @return array|Model|null|static
      * @throws DbException
      * @throws ModelNotFoundException
      * @throws DataNotFoundException
@@ -162,7 +156,7 @@ trait ResultOperation
      * 查找单条记录 不存在返回空数据（或者空模型）
      * @access public
      * @param mixed $data 数据
-     * @return array|Model
+     * @return array|Model|static|mixed
      */
     public function findOrEmpty($data = null)
     {
@@ -172,30 +166,17 @@ trait ResultOperation
     /**
      * JSON字段数据转换
      * @access protected
-     * @param array $result           查询数据
-     * @param array $json             JSON字段
-     * @param bool  $assoc            是否转换为数组
-     * @param array $withRelationAttr 关联获取器
+     * @param array $result 查询数据
      * @return void
      */
-    protected function jsonResult(array &$result, array $json = [], bool $assoc = false, array $withRelationAttr = []): void
+    protected function jsonResult(array &$result): void
     {
-        foreach ($json as $name) {
+        foreach ($this->options['json'] as $name) {
             if (!isset($result[$name])) {
                 continue;
             }
 
             $result[$name] = json_decode($result[$name], true);
-
-            if (isset($withRelationAttr[$name])) {
-                foreach ($withRelationAttr[$name] as $key => $closure) {
-                    $result[$name][$key] = $closure($result[$name][$key] ?? null, $result[$name]);
-                }
-            }
-
-            if (!$assoc) {
-                $result[$name] = (object) $result[$name];
-            }
         }
     }
 
@@ -221,8 +202,7 @@ trait ResultOperation
      * 查找多条记录 如果不存在则抛出异常
      * @access public
      * @param array|string|Query|Closure $data 数据
-     * @return array|Model
-     * @throws DbException
+     * @return array|Collection|static[]
      * @throws ModelNotFoundException
      * @throws DataNotFoundException
      */
@@ -235,8 +215,7 @@ trait ResultOperation
      * 查找单条记录 如果不存在则抛出异常
      * @access public
      * @param array|string|Query|Closure $data 数据
-     * @return array|Model
-     * @throws DbException
+     * @return array|Model|static|mixed
      * @throws ModelNotFoundException
      * @throws DataNotFoundException
      */

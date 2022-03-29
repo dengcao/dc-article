@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2019 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2021 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -149,7 +149,7 @@ if (!function_exists('cookie')) {
     {
         if (is_null($value)) {
             // 删除
-            Cookie::delete($name);
+            Cookie::delete($name, $option ?: []);
         } elseif ('' === $value) {
             // 获取
             return 0 === strpos($name, '?') ? Cookie::has(substr($name, 1)) : Cookie::get($name);
@@ -359,7 +359,7 @@ if (!function_exists('parse_name')) {
             return $ucfirst ? ucfirst($name) : lcfirst($name);
         }
 
-        return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
+        return strtolower(trim(preg_replace('/[A-Z]/', '_\\0', $name), '_'));
     }
 }
 
@@ -632,7 +632,7 @@ if (!function_exists('public_path')) {
      */
     function public_path($path = '')
     {
-        return app()->getRootPath() . ($path ? ltrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR : $path);
+        return app()->getRootPath() . 'public' . DIRECTORY_SEPARATOR . ($path ? ltrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR : $path);
     }
 }
 

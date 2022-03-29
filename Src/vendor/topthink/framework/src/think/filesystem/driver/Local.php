@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2019 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2021 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -35,7 +35,18 @@ class Local extends Driver
         : LocalAdapter::DISALLOW_LINKS;
 
         return new LocalAdapter(
-            $this->config['root'], LOCK_EX, $links, $permissions
+            $this->config['root'],
+            LOCK_EX,
+            $links,
+            $permissions
         );
+    }
+
+    public function url(string $path): string
+    {
+        if (isset($this->config['url'])) {
+            return $this->concatPathToUrl($this->config['url'], $path);
+        }
+        return parent::url($path);
     }
 }

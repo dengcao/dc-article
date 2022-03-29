@@ -29,7 +29,7 @@ use think\facade\Cache;
 function cz_auth($role)
 {
     $role_id=Session::get("role_id");
-    if(!$role_id){caozha_error("抱歉，登陆状态已失效，请重新登陆。", cz_url("admin/index/login"), 1,1);}
+    if(!$role_id){caozha_error("抱歉，登陆状态已失效，请重新登陆。", dc_url("admin/index/login"), 1,1);}
     $roles_data = get_roles($role_id);
     $authorize = explode(",", $roles_data["roles"]);
     $auth_config = Config::get("app.caozha_role_auths");
@@ -279,7 +279,7 @@ function caozha_error($alert, $url, $is_exit = 0,$is_open_new=0)
         'is_open_new' => $is_open_new
     ]);
     echo View::fetch('common/error');
-    //redirect(cz_url("admin/common/error")."?alert=".urlencode($alert)."&url=".urlencode($url));
+    //redirect(dc_url("admin/common/error")."?alert=".urlencode($alert)."&url=".urlencode($url));
     if ($is_exit == 1) {
         exit;
     }
@@ -299,7 +299,7 @@ function caozha_success($alert, $url, $is_exit = 0)
         'url' => $url
     ]);
     echo View::fetch('common/success');
-    //redirect(cz_url("admin/common/success")."?alert=".urlencode($alert)."&url=".urlencode($url));
+    //redirect(dc_url("admin/common/success")."?alert=".urlencode($alert)."&url=".urlencode($url));
     if ($is_exit == 1) {
         exit;
     }

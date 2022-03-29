@@ -94,7 +94,7 @@ function comment_face(){
 //应用的名称及版本
 $GLOBALS["caozha_common_config"] = [
     "name" => "dc-article",
-    "version" => "1.0.0",
+    "version" => "1.2.0",
     "gitee" => "caozha/dc-article",
     "github" => "cao-zha/dc-article",
 ];
@@ -102,7 +102,7 @@ $GLOBALS["caozha_common_config"] = [
 //caozha-admin 程序名称及版本，用于标识和升级，勿删改
 $GLOBALS["caozha_admin_sys"] = array(
     "name" => "caozha-admin",
-    "version" => "1.7.2",
+    "version" => "1.8.2",
     "url" => "https://gitee.com/caozha/caozha-admin",
 );
 
@@ -221,7 +221,7 @@ function getTemplatesDir(){
      * @param bool|string $domain 域名
      * @return UrlBuild
      */
-    function cz_url(string $url = '', array $vars = [], $suffix = true, $domain = false)
+    function dc_url(string $url = '', array $vars = [], $suffix = true, $domain = false)
     {
         if(substr($url, 0, 6)=="index/"){
             $url=substr($url, 5);

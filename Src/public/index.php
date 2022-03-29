@@ -17,8 +17,8 @@ require __DIR__ . '/../vendor/autoload.php';
 // 执行HTTP应用并响应
 $http = (new App())->http;
 
-//$response = $http->name('index')->run();//绑定应用名
-$response = $http->run();//绑定应用名
+$response = $http->name('index')->run();//绑定应用名
+//$response = $http->run();//绑定应用名
 
 $response->send();
 

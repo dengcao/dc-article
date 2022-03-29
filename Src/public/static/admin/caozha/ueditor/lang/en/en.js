@@ -439,7 +439,7 @@ UE.I18N['en'] = {
             'lang_template_select':'Select Template'
         },
         'blank':"Blank",
-        'blog':"Blog",
+        'blog':"Article",
         'resume':"Resume",
         'richText':"Rich Text",
         'scrPapers':"Scientific Papers"

@@ -111,6 +111,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return \count($this->getValue());
@@ -119,6 +120,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * @return \Traversable
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         if (!\is_array($value = $this->getValue())) {
@@ -150,21 +152,34 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($key)
     {
         return $this->__isset($key);
     }
 
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->__get($key);
     }
 
+    /**
+     * @return void
+     */
+    #[\ReturnTypeWillChange]
     public function offsetSet($key, $value)
     {
         throw new \BadMethodCallException(self::class.' objects are immutable.');
     }
 
+    /**
+     * @return void
+     */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($key)
     {
         throw new \BadMethodCallException(self::class.' objects are immutable.');
@@ -328,14 +343,14 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
             }
         } elseif (Stub::TYPE_REF === $item->type) {
             if ($item->handle) {
-                if (!isset($refs[$r = $item->handle - (PHP_INT_MAX >> 1)])) {
+                if (!isset($refs[$r = $item->handle - (\PHP_INT_MAX >> 1)])) {
                     $cursor->refIndex = $refs[$r] = $cursor->refIndex ?: ++$refs[0];
                 } else {
                     $firstSeen = false;
                 }
                 $cursor->hardRefTo = $refs[$r];
                 $cursor->hardRefHandle = $this->useRefHandles & $item->handle;
-                $cursor->hardRefCount = $item->refCount;
+                $cursor->hardRefCount = 0 < $item->handle ? $item->refCount : 0;
             }
             $cursor->attr = $item->attr;
             $type = $item->class ?: \gettype($item->value);

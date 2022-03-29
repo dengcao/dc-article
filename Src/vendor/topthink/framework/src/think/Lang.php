@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2019 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2021 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -18,6 +18,8 @@ namespace think;
  */
 class Lang
 {
+    protected $app;
+
     /**
      * 配置参数
      * @var array
@@ -33,6 +35,8 @@ class Lang
         'extend_list'     => [],
         // 多语言cookie变量
         'cookie_var'      => 'think_lang',
+        // 多语言header变量
+        'header_var'      => 'think-lang',
         // 多语言自动侦测变量名
         'detect_var'      => 'lang',
         // Accept-Language转义为对应语言包名称
@@ -60,15 +64,26 @@ class Lang
      * @access public
      * @param array $config
      */
-    public function __construct(array $config = [])
+    public function __construct(App $app, array $config = [])
     {
         $this->config = array_merge($this->config, array_change_key_case($config));
         $this->range  = $this->config['default_lang'];
+        $this->app    = $app;
     }
 
-    public static function __make(Config $config)
+    public static function __make(App $app, Config $config)
     {
-        return new static($config->get('lang'));
+        return new static($app, $config->get('lang'));
+    }
+
+    /**
+     * 获取当前语言配置
+     * @access public
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
     }
 
     /**
@@ -103,6 +118,35 @@ class Lang
     }
 
     /**
+     * 切换语言
+     * @access public
+     * @param string $langset 语言
+     * @return void
+     */
+    public function switchLangSet(string $langset)
+    {
+        if (empty($langset)) {
+            return;
+        }
+
+        // 加载系统语言包
+        $this->load([
+            $this->app->getThinkPath() . 'lang' . DIRECTORY_SEPARATOR . $langset . '.php',
+        ]);
+
+        // 加载系统语言包
+        $files = glob($this->app->getAppPath() . 'lang' . DIRECTORY_SEPARATOR . $langset . '.*');
+        $this->load($files);
+
+        // 加载扩展（自定义）语言包
+        $list = $this->app->config->get('lang.extend_list', []);
+
+        if (isset($list[$langset])) {
+            $this->load($list[$langset]);
+        }
+    }
+
+    /**
      * 加载语言定义(不区分大小写)
      * @access public
      * @param string|array $file  语言文件
@@ -118,9 +162,9 @@ class Lang
 
         $lang = [];
 
-        foreach ((array) $file as $_file) {
-            if (is_file($_file)) {
-                $result = $this->parse($_file);
+        foreach ((array) $file as $name) {
+            if (is_file($name)) {
+                $result = $this->parse($name);
                 $lang   = array_change_key_case($result) + $lang;
             }
         }
@@ -151,6 +195,18 @@ class Lang
                 if (function_exists('yaml_parse_file')) {
                     $result = yaml_parse_file($file);
                 }
+                break;
+            case 'json':
+                $data = file_get_contents($file);
+
+                if (false !== $data) {
+                    $data = json_decode($data, true);
+
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $result = $data;
+                    }
+                }
+
                 break;
         }
 
@@ -187,6 +243,10 @@ class Lang
     public function get(string $name = null, array $vars = [], string $range = '')
     {
         $range = $range ?: $this->range;
+
+        if (!isset($this->lang[$range])) {
+            $this->switchLangSet($range);
+        }
 
         // 空参数返回所有定义
         if (is_null($name)) {
@@ -227,6 +287,7 @@ class Lang
 
     /**
      * 自动侦测设置获取语言选择
+     * @deprecated
      * @access public
      * @param Request $request
      * @return string
@@ -239,6 +300,9 @@ class Lang
         if ($request->get($this->config['detect_var'])) {
             // url中设置了语言变量
             $langSet = strtolower($request->get($this->config['detect_var']));
+        } elseif ($request->header($this->config['header_var'])) {
+            // Header中设置了语言变量
+            $langSet = strtolower($request->header($this->config['header_var']));
         } elseif ($request->cookie($this->config['cookie_var'])) {
             // Cookie中设置了语言变量
             $langSet = strtolower($request->cookie($this->config['cookie_var']));
@@ -263,6 +327,7 @@ class Lang
 
     /**
      * 保存当前语言到Cookie
+     * @deprecated
      * @access public
      * @param Cookie $cookie Cookie对象
      * @return void

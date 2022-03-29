@@ -80,6 +80,18 @@ abstract class Relation
     protected $withField;
 
     /**
+     * 排除关联数据字段
+     * @var array
+     */
+    protected $withoutField;
+
+    /**
+     * 默认数据
+     * @var mixed
+     */
+    protected $default;
+
+    /**
      * 获取关联的所属模型
      * @access public
      * @return Model
@@ -97,6 +109,26 @@ abstract class Relation
     public function getQuery()
     {
         return $this->query;
+    }
+
+    /**
+     * 获取关联表外键
+     * @access public
+     * @return string
+     */
+    public function getForeignKey()
+    {
+        return $this->foreignKey;
+    }
+
+    /**
+     * 获取关联表主键
+     * @access public
+     * @return string
+     */
+    public function getLocalKey()
+    {
+        return $this->localKey;
     }
 
     /**
@@ -169,30 +201,6 @@ abstract class Relation
     }
 
     /**
-     * 更新数据
-     * @access public
-     * @param  array $data 更新数据
-     * @return integer
-     */
-    public function update(array $data = []): int
-    {
-        return $this->query->update($data);
-    }
-
-    /**
-     * 删除记录
-     * @access public
-     * @param  mixed $data 表达式 true 表示强制删除
-     * @return int
-     * @throws Exception
-     * @throws PDOException
-     */
-    public function delete($data = null): int
-    {
-        return $this->query->delete($data);
-    }
-
-    /**
      * 限制关联数据的数量
      * @access public
      * @param  int $limit 关联数量限制
@@ -217,6 +225,54 @@ abstract class Relation
     }
 
     /**
+     * 排除关联数据的字段
+     * @access public
+     * @param  array|string $field 关联字段限制
+     * @return $this
+     */
+    public function withoutField($field)
+    {
+        if (is_string($field)) {
+            $field = array_map('trim', explode(',', $field));
+        }
+
+        $this->withoutField = $field;
+        return $this;
+    }
+
+    /**
+     * 设置关联数据不存在的时候默认值
+     * @access public
+     * @param  mixed $data 默认值
+     * @return $this
+     */
+    public function withDefault($data = null)
+    {
+        $this->default = $data;
+        return $this;
+    }
+
+    /**
+     * 获取关联数据默认值
+     * @access protected
+     * @return mixed
+     */
+    protected function getDefaultModel()
+    {
+        if (is_array($this->default)) {
+            $model = (new $this->model)->data($this->default);
+        } elseif ($this->default instanceof Closure) {
+            $closure = $this->default;
+            $model   = new $this->model;
+            $closure($model);
+        } else {
+            $model = $this->default;
+        }
+
+        return $model;
+    }
+
+    /**
      * 判断闭包的参数类型
      * @access protected
      * @return mixed
@@ -228,7 +284,7 @@ abstract class Relation
 
         if (!empty($params)) {
             $type = $params[0]->getType();
-            return Relation::class == $type || is_null($type) ? $this : $this->query;
+            return is_null($type) || Relation::class == $type->getName() ? $this : $this->query;
         }
 
         return $this;

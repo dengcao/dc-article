@@ -6,18 +6,18 @@
 </head>
 <body>
 <h1>文章标签</h1>
-{caozha:article name='art' catid='' fields='' islink='' isreco='' ishot='' istop='' iscomment='' limit='' orderby='' status='' iscache="1" isthumb="1"}
+{dc:article name='art' catid='' fields='' islink='' isreco='' ishot='' istop='' iscomment='' limit='' orderby='' status='' iscache="1" isthumb="1"}
 {$art.id} {$art.cat_catname} {$art.title}<br>
-{/caozha:article}
+{/dc:article}
 <br>
 <h1>分类标签</h1>
-{caozha:category name='cat' fields='' type='' modelid='' parentid='' child='' ismenu='' limit='' orderby='' iscache="1"}
+{dc:category name='cat' fields='' type='' modelid='' parentid='' child='' ismenu='' limit='' orderby='' iscache="1"}
 {$cat.catid} {$cat.catname}<br>
-{/caozha:category}
+{/dc:category}
 <br>
 <h1>万能标签</h1>
-{caozha:get name='list' fields='' datatable='member' where='' limit='' orderby='' iscache="1"}
+{dc:get name='list' fields='' datatable='member' where='' limit='' orderby='' iscache="1"}
 {$list.userid} {$list.username}<br>
-{/caozha:get}
+{/dc:get}
 </body>
 </html>

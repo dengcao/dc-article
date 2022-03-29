@@ -12,7 +12,7 @@
                 {if $cmt_config.is_img}<li onclick="caozha.showPickImg(event,1)"><i class="iconfont icon-img">&#xe610;</i></li>{/if}
                 {if $cmt_config.is_captcha}<li class="ShowPlKey">
                     <input type="text" id="pl-key-reply" class="pl-key" size="10" placeholder="验证码" />
-                    <img src="{:cz_url('index/comment/captcha')}" align="absmiddle" name="plKeyImg" class="plKeyImg" onclick="caozha.updateKey()" title="看不清楚,点击刷新" />
+                    <img src="{:dc_url('index/comment/captcha')}" align="absmiddle" name="plKeyImg" class="plKeyImg" onclick="caozha.updateKey()" title="看不清楚,点击刷新" />
                 </li>{/if}
                 <li class="pl-tools-lastchild"><button class="pl-submit-btn" onclick="caozha.submitComment(this,{literal}{{plid}}{/literal})">发 布</button></li>
                 <li  class="username"><i class="iconfont">&#xe613;</i><input type="text" id="pl-username-reply" class="pl-key" size="15" placeholder="你的昵称" value="" /></li>
@@ -69,7 +69,7 @@
                 {if $cmt_config.is_captcha}<li class="ShowPlKey">
                     <div style="margin-top:5px;">
                         <input type="text" id="pl-key" class="pl-key" size="10" placeholder="验证码" />
-                        <img src="{:cz_url('index/comment/captcha')}?" align="absmiddle" name="plKeyImg" class="plKeyImg" onclick="caozha.updateKey()" title="看不清楚,点击刷新" />
+                        <img src="{:dc_url('index/comment/captcha')}?" align="absmiddle" name="plKeyImg" class="plKeyImg" onclick="caozha.updateKey()" title="看不清楚,点击刷新" />
                     </div>
                 </li>{/if}
                 <li class="pl-tools-lastchild"><button class="pl-submit-btn" id="pl-submit-btn-main" onclick="caozha.submitComment(this)">发 布</button></li>

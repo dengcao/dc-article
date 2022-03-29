@@ -1,5 +1,5 @@
 /**
- * Dark cz_blue theme for Highcharts JS
+ * Dark blue theme for Highcharts JS
  * @author Torstein Hønsi
  */
 

@@ -394,11 +394,13 @@ if (!function_exists('echo_value')) {
     <?php } ?>
 
     <div class="copyright">
-        <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a> 
+        <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a>
         <span>V<?php echo \think\facade\App::version(); ?></span>
-        <span>&nbsp; - &nbsp;</span>
-        Powered by <a href="<?php echo $GLOBALS["caozha_admin_sys"]["url"];?>" target="_blank"><?php echo $GLOBALS["caozha_admin_sys"]["name"];?></a> <?php echo $GLOBALS["caozha_admin_sys"]["version"];?>  &nbsp;
-        <a href="http://caozha.com" target="_blank">草札官方网站</a>
+        <span> <a title="官方手册" href="https://www.kancloud.cn/manual/thinkphp6_0/content">手册</a></span>
+        <span> - </span>
+        Powered by <a href="<?php echo $GLOBALS["caozha_admin_sys"]["url"];?>" target="_blank"><?php echo $GLOBALS["caozha_admin_sys"]["name"];?></a> <?php echo $GLOBALS["caozha_admin_sys"]["version"];?>
+        <span> - </span>
+        <a href="http://caozha.com" target="_blank">官方网站</a>
     </div>
     <?php if (\think\facade\App::isDebug()) { ?>
     <script>

@@ -69,8 +69,9 @@ class Fetch
     /**
      * 得到某个字段的值
      * @access public
-     * @param  string $field   字段名
-     * @param  mixed  $default 默认值
+     * @param string $field 字段名
+     * @param mixed $default 默认值
+     * @param bool $one
      * @return string
      */
     public function value(string $field, $default = null, bool $one = true): string
@@ -420,10 +421,8 @@ class Fetch
 
         if (!empty($options['group'])) {
             // 支持GROUP
-            $bind   = $this->query->getBind();
-            $subSql = $this->query->options($options)->field('count(' . $field . ') AS think_count')->bind($bind)->buildSql();
-
-            $query = $this->query->newQuery()->table([$subSql => '_group_count_']);
+            $subSql = $this->query->field('count(' . $field . ') AS think_count')->buildSql();
+            $query  = $this->query->newQuery()->table([$subSql => '_group_count_']);
 
             return $query->fetchsql()->aggregate('COUNT', '*');
         } else {

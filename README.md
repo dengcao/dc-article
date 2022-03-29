@@ -290,6 +290,12 @@ GitHub Wiki：[https://github.com/cao-zha/caozha-admin/wiki](https://github.com/
 
 3、修复了若干BUG。
 
+**版本1.2.1，主要更新：**
+
+1、支持php8.1，修复了php8.1时验证码错误等BUG。
+
+2、更新了ThinkPHP框架到最新版。
+
 
 ## 特别鸣谢
 

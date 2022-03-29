@@ -7,6 +7,8 @@
  * Github：https://github.com/cao-zha/dc-article   or   Gitee：https://gitee.com/caozha/dc-article
  */
 
+error_reporting(0);//解决php8.1时错误
+
 // 应用公共文件
 
 use app\index\model\Category as CategoryModel;

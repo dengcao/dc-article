@@ -63,6 +63,8 @@ dc-article是一个通用的文章内容管理系统，基于开源的caozha-adm
 
 2、如果您使用的是Apache，伪静态设置为（.htaccess）：
 
+
+```
 <IfModule mod_rewrite.c>
   Options +FollowSymlinks -Multiviews
   RewriteEngine On
@@ -74,17 +76,23 @@ RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 RewriteRule ^(.*)$ index.php?s=$1 [QSA,PT,L]
 </IfModule>
+```
+
 
 
 3、如果您使用的是Nginx，以wdCP和宝塔Linux面板为例，伪静态设置为：
 
+
+```
     index index.php;
     rewrite ^/getimg/(.*)$ /get_img/index.php?url=$1  last;
     if (!-e $request_filename) {
        rewrite  ^(.*)$  /index.php?s=/$1  last;
        break;
     }
-    
+```
+
+
 
 
 4、在网站运行目录（/public/）下，有两个文件：.htaccess和nginx.htaccess，分别是Apache和Nginx的伪静态文件，您可以直接拿来使用。
@@ -110,11 +118,15 @@ http://（域名）/getimg/https（或http，根据远程图片决定）/(远程
 
 **举例：**
 
+
+```
 {dc:article name='art' catid='' fields='' islink='' isreco='' ishot='' istop='' iscomment='' limit='' orderby='' status='' iscache="1" isthumb="1"}
 
 {$art.id} {$art.cat_catname} {$art.title}<br>
 
 {/dc:article}
+```
+
 
 **参数说明：**
 
@@ -153,11 +165,15 @@ iscache：是否启用缓存。不设置时，默认为启用，1=启用。设�
 
 **举例：**
 
+
+```
 {dc:category name='cat' fields='' type='' modelid='' parentid='0' child='' ismenu='' limit='0,5' orderby='' iscache="1"}
 
 {$cat.catid} {$cat.catname}<br>
 
 {/dc:category}
+```
+
 
 **参数说明：**
 
@@ -188,11 +204,15 @@ iscache：是否启用缓存。不设置时，默认为启用，1=启用。设�
 
 **举例：**
 
+
+```
 {dc:get name='list' fields='' datatable='member' where='' limit='' orderby='' iscache="1"}
 
 {$list.userid} {$list.username}<br>
 
 {/dc:get}
+```
+
 
 **参数说明：**
 
@@ -213,7 +233,7 @@ iscache：是否启用缓存。不设置时，默认为启用，1=启用。设�
 
 **举例：**
 
-{dc:block marker='top_tips' is_strip="" allow_html="" iscache="1"}
+`{dc:block marker='top_tips' is_strip="" allow_html="" iscache="1"}`
 
 **参数说明：**
 
@@ -228,7 +248,7 @@ is_decode：HTML实体是否转换为字符，1=转换，不设置或设置其�
 
 **（5）其他标签。**
 
-{$web_config.值}
+`{$web_config.值}`
 
 举例：
 

@@ -102,7 +102,7 @@ http://（域名）/getimg/https（或http，根据远程图片决定）/(远程
 
 ## 开发手册
 
-###1、模板制作（标签调用）
+### 1、模板制作（标签调用）
 
 **（1）文章列表标签。**
 
@@ -240,7 +240,7 @@ is_decode：HTML实体是否转换为字符，1=转换，不设置或设置其�
 更多标签使用方法，可具体参考：Src\app\index\view\cz_blue里的模板。
 
 
-**2、本系统基于caozha-admin开发，二次开发可参考此手册**
+### 2、本系统基于caozha-admin开发，二次开发可参考此手册
 
 码云Wiki：[https://gitee.com/caozha/caozha-admin/wikis](https://gitee.com/caozha/caozha-admin/wikis)
 

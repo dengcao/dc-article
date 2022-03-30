@@ -7,11 +7,9 @@
  * Github：https://github.com/cao-zha/dc-article   or   Gitee：https://gitee.com/caozha/dc-article
  */
 
-if (version_compare(PHP_VERSION,"8.1.0",">=")) {
-    error_reporting(0);//解决php8.1时错误
-}
-
 // 应用公共文件
+
+if (version_compare(PHP_VERSION,"8.1.0",">=")) {error_reporting(0);} //解决php8.1时的错误问题
 
 use app\index\model\Category as CategoryModel;
 use think\facade\Db;

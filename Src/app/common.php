@@ -203,10 +203,10 @@ function getTemplatesDir(){
     if(is_dir($tpl_path)){
         $tpl_dir=scandir($tpl_path);//遍历目录，获取文件名
         foreach($tpl_dir as $value){
-            if(substr($value,0,1)=="."){//判断是否目录，去除目录
+            if(substr($value,0,1)=="." || $value=="comment"){//判断是否目录，去除目录
                 continue;
             }
-            $tpl_arr[]=str_ireplace(".html","",$value);
+            $tpl_arr[]=$value;
         }
     }
     return $tpl_arr;

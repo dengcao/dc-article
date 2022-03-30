@@ -173,12 +173,6 @@ return [
               "href": "'.dc_url("admin/comment/index").'",
               "icon": "fa fa-comment-o",
               "target": "_self"
-            },
-            {
-              "title": "查看评论",
-              "href": "'.dc_url("index/comment/index").'",
-              "icon": "fa fa-comments-o",
-              "target": "_blank"
             }
           ]
         },

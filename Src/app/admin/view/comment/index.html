@@ -72,7 +72,8 @@
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-xs layui-btn-primary data-count-view" lay-event="view">详情</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-view" lay-event="view">详情</a>
+            <a class="layui-btn layui-btn-xs data-count-article" lay-event="article">文章</a>
         </script>
 
 
@@ -120,7 +121,7 @@
                 {field: 'bad_num', width: 60, align: "center", title: '踩'},
                 {field: 'ishot', width: 60, align: "center", title: '热门'},
                 {field: 'ischeck', width: 60, align: "center", title: '审核'},
-                {title: '操作', width: 80, toolbar: '#currentTableBar', align: "center", fixed: "right"}
+                {title: '操作', width: 120, toolbar: '#currentTableBar', align: "center", fixed: "right"}
             ]],
             limits: [5, 10, 15, 20, 25, 50, 100, 200, 500, 1000],
             limit: {$comment_limit},
@@ -250,6 +251,11 @@
                     area: ['60%', '95%'],
                     content: '{:dc_url(\'admin/comment/view\')}?id=' + comment_data.id,
                 });
+                return false;
+
+            } else if (obj.event === 'article') {
+
+                window.open("/show/"+comment_data.cmtid.replace("act_",""));
                 return false;
 
             }

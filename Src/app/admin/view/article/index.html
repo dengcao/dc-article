@@ -101,8 +101,9 @@
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-xs layui-btn-primary data-count-view" lay-event="view">详情</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-view" lay-event="view">详情</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>
+            <a class="layui-btn layui-btn-xs data-count-article" lay-event="article">预览</a>
         </script>
 
 
@@ -150,7 +151,7 @@
                 {field: 'istop', width: 60, title: '置顶', align: "center"},
                 {field: 'inputtime', width: 165, title: '发布时间'},
                 {field: 'hits', width: 90, align: "center", title: '浏览数'},
-                {title: '操作', width: 130, toolbar: '#currentTableBar', align: "center", fixed: "right"}
+                {title: '操作', width: 170, toolbar: '#currentTableBar', align: "center", fixed: "right"}
             ]],
             limits: [5, 10, 15, 20, 25, 50, 100, 200, 500, 1000],
             limit: {$article_limit},
@@ -362,6 +363,11 @@
                     area: ['95%', '95%'],
                     content: '{:dc_url(\'admin/article/view\')}?id='+article_data.id,
                 });
+                return false;
+
+            } else if (obj.event === 'article') {
+
+                window.open("/show/"+article_data.id);
                 return false;
 
             }

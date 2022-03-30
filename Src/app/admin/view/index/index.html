@@ -141,8 +141,8 @@
             layer_skin(layer);
 
         var options = {
-            iniUrl: "{:url(\'admin/index/czInit\')}",    // 初始化接口
-            clearUrl: "{:url(\'admin/index/cacheClear\')}", // 缓存清理接口
+            iniUrl: "{:dc_url(\'admin/index/czInit\')}",    // 初始化接口
+            clearUrl: "{:dc_url(\'admin/index/cacheClear\')}", // 缓存清理接口
             urlHashLocation: true,      // 是否打开hash定位
             bgColorDefault: layuimini_bgColorDefault, // 主题默认配置
             multiModule: true,          // 是否开启多模块
@@ -154,7 +154,7 @@
         miniAdmin.render(options);
 
         $('.login-out').on("click", function () {
-            window.location = '{:url(\'admin/index/logout\')}';
+            window.location = '{:dc_url(\'admin/index/logout\')}';
         });
 
         $('#mine_view').on("click", function () {
@@ -164,7 +164,7 @@
                 shade: 0.2,
                 maxmin: true,
                 area: ['580px', '75%'],
-                content: '{:url(\'admin/mine/view\')}',
+                content: '{:dc_url(\'admin/mine/view\')}',
             });
         });
 
@@ -175,7 +175,7 @@
                 shade: 0.2,
                 maxmin: true,
                 area: ['580px', '75%'],
-                content: '{:url(\'admin/mine/modify\')}',
+                content: '{:dc_url(\'admin/mine/modify\')}',
             });
         });
 

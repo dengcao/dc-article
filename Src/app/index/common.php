@@ -7,7 +7,9 @@
  * Github：https://github.com/cao-zha/dc-article   or   Gitee：https://gitee.com/caozha/dc-article
  */
 
-error_reporting(0);//解决php8.1时错误
+if (version_compare(PHP_VERSION,"8.1.0",">=")) {
+    error_reporting(0);//解决php8.1时错误
+}
 
 // 应用公共文件
 

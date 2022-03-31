@@ -1,4 +1,4 @@
-# dc-article 文章内容管理系统 1.2.1
+# dc-article 文章内容管理系统 1.3.0
 
 dc-article是一个通用的文章内容管理系统，基于开源的caozha-admin开发，采用前后端分离的模板和标签化方式，支持文章内容管理、栏目分类管理、评论管理、友情链接管理、碎片管理、远程图片获取器等功能。可以使用本系统很轻松地架构新闻类网站、文章类网站、图片展示类网站或个人博客网站。系统特点：易上手，零门槛，拿来即用，界面清爽极简，极便于二次开发。
 
@@ -27,6 +27,8 @@ dc-article是一个通用的文章内容管理系统，基于开源的caozha-adm
 11、整合了百度UEditor（编辑器）、caozha-getimg（远程图片获取器，可以获取远程经防盗的图片，绕过防盗检测）等各种常用插件，可去演示页面查看。
 
 12、系统采用了缓存机制，加快访问速度。所以后台添加、修改或更新了文章和设置后，必须点击后台右上角的“回收站”按钮，清空缓存。不清空缓存，前台页面不会更新。（当然您也可以在后台“系统设置”里关闭页面缓存。）
+
+13、提供了两套不同的风格，也可以自己设计更多的风格。
 
 
 主要提供了以上基础功能，您可以在此基础上拓展和开发出不同的应用。
@@ -181,7 +183,7 @@ name：循环体的数组名，可设置为任意英文字母组合。设置后�
 
 limit：显示多少个分类,默认是：0,5 （表示从第一个起，共显示5条）。
 
-parentid：父分类ID，多个中间用,分隔，表示仅获取该父分类下的所有分类。设置为0或留空时获取所有分类。
+parentid：父分类ID，多个中间用,分隔，表示仅获取该父分类下的所有分类。设置为0或留空时仅获取顶级分类。
 
 type：分类类型，0=内部栏目，1=单网页，2=外部链接。设置为-1或留空时获取所有。
 
@@ -219,6 +221,8 @@ iscache：是否启用缓存。不设置时，默认为启用，1=启用。设�
 name：循环体的数组名，可设置为任意英文字母组合。设置后要与下方对应。
 
 datatable：要查询的数据表，必选项，不要包含数据表前缀。如：article。
+
+where：查询条件，格式如：catid=1 and thumb!=""
 
 limit：显示多少条数据,默认是：0,5 （表示从第一个起，共显示5条）。
 
@@ -267,6 +271,17 @@ is_decode：HTML实体是否转换为字符，1=转换，不设置或设置其�
 GitHub Wiki：[https://github.com/cao-zha/caozha-admin/wiki](https://github.com/cao-zha/caozha-admin/wiki)
 
 
+### 3、提供了两套不同的网站风格
+
+1、\Database\dc_article_blue.sql    蓝色风格的数据库。
+
+2、\Database\dc_article_green.sql    绿色风格的数据库。
+
+分别对应两种网站风格的初始化数据库，导入其中一种就可以了。
+
+在网站后台 -》系统设置，可以设置不同的风格，也可以自己设计更多的风格。
+
+
 ## 更新方法
 
 **1.0.0升级到1.2.0的方法：**
@@ -295,6 +310,12 @@ GitHub Wiki：[https://github.com/cao-zha/caozha-admin/wiki](https://github.com/
 1、支持php8.1，修复了php8.1时验证码错误等BUG。
 
 2、更新了ThinkPHP框架到最新版。
+
+**版本1.3.0，主要更新：**
+
+1、新增了1套绿色风格模板，目前共有2套风格可选择。
+
+2、修复了Ueditor一个小BUG。
 
 
 ## 特别鸣谢
@@ -329,6 +350,8 @@ GitHub：https://github.com/cao-zha/dc-article
 演示网址：http://caozha.com
 
 
+**蓝色风格：**
+
 ![输入图片说明](https://images.gitee.com/uploads/images/2022/0322/011655_29356782_7397417.png "1.png")
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2022/0322/011705_12f1eaa4_7397417.png "2.png")
@@ -344,6 +367,15 @@ GitHub：https://github.com/cao-zha/dc-article
 ![输入图片说明](https://images.gitee.com/uploads/images/2022/0322/011802_0baf6cca_7397417.png "7.png")
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2022/0322/011812_b0b5927a_7397417.png "8.png")
+
+
+
+**绿色风格：**
+
+
+![输入图片说明](https://images.gitee.com/uploads/images/2022/0401/030131_0ecc1017_7397417.jpeg "green.jpg")
+
+
 
 
 **后台管理功能页面：**

@@ -369,7 +369,7 @@ function is_login()
 
 /**
  *md5加强型，防止破解
- * @param string $str 点确定返回的URL
+ * @param string $str 要加密的字符
  * @return string
  */
 function md5_plus($str)

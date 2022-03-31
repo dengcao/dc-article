@@ -17,6 +17,7 @@ class Dc extends TagLib
         'category'    => ['attr' => 'name,fields,type,modelid,parentid,child,ismenu,limit,orderby,iscache', 'close' => 1],//分类
         'get'      => ['attr' => 'name,fields,datatable,where,limit,orderby,iscache', 'close' => 1],//万能标签
         'block'      => ['attr' => 'marker,iscache,is_strip,allow_html,is_decode', 'close' => 0],//碎片标签
+        'showpage'      => ['attr' => 'total,limit,show_style,css_style', 'close' => 0],//分页标签
     ];
 
     /**
@@ -81,6 +82,7 @@ class Dc extends TagLib
         $tag['limit'] = empty($tag['limit']) ? "0,5" : attr_to_variable($tag['limit']); //显示多少个,默认5
         $tag['orderby'] = empty($tag['orderby']) ? "" : attr_to_variable($tag['orderby']); //排序，格式：listorder asc,catid asc
         $tag['where'] = empty($tag['where']) ? "" : attr_to_variable($tag['where']); //排序，格式：listorder asc,catid asc
+        //$tag['where_var'] = empty($tag['where_var']) ? "" : attr_to_variable($tag['where_var']); //where传入参数，json格式，如：{\"id\":56,\"title\":\"caozha\"}
         $tag['datatable'] = empty($tag['datatable']) ? "" : attr_to_variable($tag['datatable']); //查询的数据表
         $tag['fields'] = empty($tag['fields']) ? "" : attr_to_variable($tag['fields']); //查询的字段
         $tag['iscache'] = empty($tag['iscache']) ? 1 : attr_to_variable($tag['iscache']); //是否启用缓存，1=缓存
@@ -111,6 +113,23 @@ class Dc extends TagLib
         $parse .= '$__BLOCK_DATA__ = template_getBlock(\''.json_encode($tag).'\');';
         $parse .= ' ?>';
         $parse .= '{$__BLOCK_DATA__|raw}';
+        return $parse;
+    }
+
+    /**
+     * 获取分页数据
+     */
+    public function tagShowpage($tag, $content)
+    {
+        $tag['total'] = empty($tag['total']) ? 0 : attr_to_variable($tag['total']); //数据总数
+        $tag['limit'] = empty($tag['limit']) ? 10 : attr_to_variable($tag['limit']); //每页数量
+        $tag['show_style'] = empty($tag['show_style']) ? 1 : attr_to_variable($tag['show_style']); //分页显示样式
+        $tag['css_style'] = empty($tag['css_style']) ? 1 : attr_to_variable($tag['css_style']); //CSS显示样式
+
+        $parse = '<?php ';
+        $parse .= '$__Showpage_DATA__ = template_getShowpage(\''.json_encode($tag).'\');';
+        $parse .= ' ?>';
+        $parse .= '{$__Showpage_DATA__|raw}';
         return $parse;
     }
 

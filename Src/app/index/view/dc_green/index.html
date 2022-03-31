@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>{$web_config.index_title}</title>
+<meta name="keywords" content="{$web_config.index_keywords}" />
+<meta name="description" content="{$web_config.index_description}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="__CAOZHA-SKIN__/green/css/base.css" rel="stylesheet">
+<link href="__CAOZHA-SKIN__/green/css/m.css" rel="stylesheet">
+<link href="__CAOZHA-SKIN__/green/css/swiper.min.css" rel="stylesheet">
+<script src="__CAOZHA-SKIN__/green/js/jquery-3.6.0.min.js" ></script>
+<script src="__CAOZHA-SKIN__/green/js/comm.js"></script>
+<!-- Swiper JS -->
+<script src="__CAOZHA-SKIN__/green/js/swiper.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="top_head box">
+    <div class="logo"><a href="/" target="_blank"><img src="__CAOZHA-SKIN__/green/images/logo.png" alt=""></a></div>
+    <div class="is-search"> <i></i> </div>
+    <div class="search">
+      <form action="{:dc_url('index/article/search')}" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <!--search end--> 
+  </div>
+  <div class="clear"></div>
+  <nav>
+    <ul id="starlist" class="box">
+      <li><a href="/">首页</a></li>
+      {dc:category name='cat' fields='catid,catname,url' parentid='0' limit='0,10' orderby='' iscache="1"}
+      <li><a href="{:art_cat_url($cat.url,$cat.catid)}">{$cat.catname}</a></li>
+      {/dc:category}
+    </ul>
+    <div id="mnavh"><span class="navicon"></span></div>
+  </nav>
+
+</header>  <div class="mtop"></div>
+<div class="banner">
+  {dc:block marker='banner' is_strip="1" allow_html="<h3><span><h5>" is_decode="1" iscache="1"}
+</div>
+<div class="box">
+  <div class="menu">
+    {dc:category name='menu_cat' fields='catid,catname,url,child' type='' modelid='' parentid='0' child='' ismenu='1' limit='0,4' orderby='' iscache="1"}
+    <dl>
+      <dt><a href="{:art_cat_url($menu_cat.url,$menu_cat.catid)}">{$menu_cat.catname}</a></dt>
+      {php}$menu_parentid=$menu_cat["catid"];{/php}
+    {dc:category name='menu_sub' fields='catid,catname,url' type='' modelid='' parentid='$menu_parentid' child='' ismenu='1' limit='0,8' orderby='' iscache="1"}
+      <dd><a href="{:art_cat_url($menu_sub.url,$menu_sub.catid)}">{$menu_sub.catname}</a></dd>
+    {/dc:category}
+    </dl>
+    {/dc:category}
+  </div>
+  <div class="clear"></div>
+  <div class="news_l">
+    <div class="news_banner">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <!--显示最新的置顶且推荐的带缩略图的两篇文章-->
+          {dc:article name='art' fields='id,title,thumb,url' isthumb="1" istop='1' isreco='1' islink='0' limit='0,2' iscache="1"}
+          <div class="swiper-slide"> <a href="{:art_url($art.url,$art.id)}" target="_blank"><img src="{$art.thumb}" alt="{$art.title}" width="360" height="180"></a></div>
+          {/dc:article}
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+      <script>	
+	 var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            paginationClickable: true,
+            spaceBetween: 100,
+            centeredSlides: true,
+            autoplay: 8000,
+            autoplayDisableOnInteraction: false,
+        });
+    </script> 
+    </div>
+    <div class="toutiao"><!--头条-->
+      <ul class="news">
+        <!--最新置顶的第14-19篇文章-->
+        {dc:article name='art' fields='id,title,url,inputtime' islink='0' istop='1' limit='13,5' iscache="1"}
+        <li><span>{:date("Y-m-d",strtotime($art.inputtime))}</span><a href="{:art_url($art.url,$art.id)}">{$art.title}</a></li>
+        {/dc:article}
+      </ul>
+    </div>
+  </div>
+  <div class="news_m"><!--推荐-->
+    <!--显示最新的置顶且推荐的第1篇文章-->
+    {dc:article name='art' fields='id,title,url,description' islink='0' istop='1' isreco='1' limit='0,1' iscache="1"}
+    <section><a href="{:art_url($art.url,$art.id)}" target="_blank">
+      <h4>{$art.title}</h4>
+      </a>
+      <p style="text-indent: 2em;">{$art.description}</p>
+      <span>最新推荐</span> </section>
+    {/dc:article}
+    <ul class="news_dot">
+      <!--最新置顶的第2-13篇文章-->
+      {dc:article name='art' fields='id,title,url' islink='0' istop='1' limit='1,12' iscache="1"}
+      <li><a href="{:art_url($art.url,$art.id)}">{$art.title}</a></li>
+      {/dc:article}
+    </ul>
+  </div>
+  <div class="news_r"><!--热门点击-->
+    <h3 class="hot_title">热门点击</h3>
+    <i class="hot_pic">
+      {dc:article name='art' fields='id,title,thumb,url' isthumb="1" istop='1' islink='0' limit='0,1' orderby='hits desc' iscache="1"}
+      <a href="{:art_url($art.url,$art.id)}" target="_blank"><img src="{$art.thumb}" alt="{$art.title}" width="300" height="106"></a>
+      {/dc:article}
+    </i>
+    <ul class="hot_news">
+      {php}$hot_i=0;{/php}
+      {dc:article name='art' fields='id,title,url' istop='1' islink='0' limit='0,6' orderby='hits desc' iscache="1"}
+      {php}$hot_i+=1;{/php}
+      <li><i>{$hot_i}</i><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+      {/dc:article}
+    </ul>
+  </div>
+  <div class="clear"></div>
+
+  {dc:category name='cat' fields='catid,catname,url' type='' parentid='0' child='' modelid='1' limit='0,10' orderby='' iscache="1"}
+  {php}$cut_catid=$cat["catid"];{/php}
+  <div class="news_box">
+    <h2 class="news_title"><span><a href="{:art_cat_url($cat.url,$cat.catid)}">更多</a></span><a href="{:art_cat_url($cat.url,$cat.catid)}">{$cat.catname}</a></h2>
+    <div class="news_box_left">
+      <ul class="news_pic">
+        {dc:article name='art' fields='id,title,thumb,url,description' catid='$cut_catid' isthumb="1" islink='0' limit='0,2' iscache="1"}
+        <li><a href="{:art_url($art.url,$art.id)}" target="_blank"><i><img src="{$art.thumb}" alt="{$art.title}" width="130" height="86"></i>
+          <h3>{$art.title}</h3>
+          <p>{$art.description}</p>
+        </a></li>
+        {/dc:article}
+      </ul>
+      <ul class="news_list">
+        {dc:article name='art' fields='id,title,url,inputtime' catid='$cut_catid' islink='0' limit='2,12' iscache="1"}
+        <li><span>{:date("Y-m-d",strtotime($art.inputtime))}</span><a href="{:art_url($art.url,$art.id)}">{$art.title}</a></li>
+        {/dc:article}
+      </ul>
+    </div>
+    <div class="news_r">
+      <h3 class="hot_title">热门点击</h3>
+      <ul class="hot_news">
+        {php}$hot_i=0;{/php}
+        {dc:article name='art' fields='id,title,url' catid='$cut_catid' islink='0' limit='0,8' orderby='hits desc' iscache="1"}
+        {php}$hot_i+=1;{/php}
+        <li><i>{$hot_i}</i><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/dc:article}
+      </ul>
+    </div>
+  </div>
+  {/dc:category}
+
+  <div class="clear"></div>
+  <div class="links"> <span>友情链接：</span>
+    {dc:get name='list' fields='link_name,link_url' datatable='links' where='status=1' limit='0,100' orderby='listorder desc,id asc' iscache="1"}
+    <a href="{$list.link_url}" target="_blank">{$list.link_name}</a>
+    {/dc:get}
+  </div>
+</div>
+<footer>
+  <div class="box">
+    {$web_config.site_footer|raw|stripslashes}
+  </div>
+</footer>
+<a href="#" title="返回顶部" class="icon-top"></a>
+<script>
+  //统计代码
+  $(function () {
+    //延迟统计, 以免影响页面载入
+    var cnzz = document.createElement("script");
+    cnzz.src = '{dc:block marker="tj_url" is_strip="1" is_decode="1" iscache="1"}';
+    document.getElementsByTagName('body')[0].appendChild(cnzz);
+  });
+</script>
+</body>
+</html>

@@ -256,7 +256,18 @@ function template_get($tag)
         $tag['fields'] = "*";
     }
     if (!empty($tag['where'])) {
-        $tag['where'] = " where " . str_ireplace("\\'","'",$tag['where']);//暂时允许出现'符号
+        $tag['where'] = " where " . str_ireplace("\\\"","\"",str_ireplace("\\'","'",$tag['where']));//暂时允许出现'和"符号
+        /* 废弃的代码
+        if(!empty($tag['where_var'])){
+            $tag['where_var']=str_ireplace("\\","",$tag['where_var']);
+            $where_var_arr=json_decode($tag['where_var'],true);
+            if(is_array($where_var_arr)){
+                foreach ($where_var_arr as $key=>$value){
+                    $tag['where']=str_ireplace("$".$key."$",$value,$tag['where']);
+                }
+            }
+        }
+        */
     }
     if ($tag['orderby']) {//排序
         $tag['orderby'] = " order by " . $tag['orderby'];
@@ -303,7 +314,7 @@ function template_getBlock($tag)
         $block_content_data="";
         $list = Db::query("select `content` from `" . $cz_prefix . "block` " . $tag['where'] . " limit 0,1;");
         foreach ($list as $data) {
-            $block_content_data=$data["content"];
+            $block_content_data=stripslashes($data["content"]);//消除反斜杠
         }
         if ($tag['is_decode']==1 && $block_content_data!=""){
             $block_content_data=html_entity_decode($block_content_data);//HTML实体转换为字符
@@ -314,6 +325,35 @@ function template_getBlock($tag)
         $web_config = get_web_config();
         Cache::set($cache_id, $block_content_data, $web_config["cache_expire"]);
         return $block_content_data;
+
+    }
+}
+
+/**
+ * 模板标签库 获取分页数据
+ * @param json $tag 标签属性
+ * @return string
+ */
+function template_getShowpage($tag)
+{
+    $tag = filter_sql_arr(json_decode($tag, true));
+
+    if (empty($tag['total'])) {
+        return '';
+    }
+    $cz_prefix = config('database.connections.mysql.prefix');//数据表前缀
+
+    //优先读取缓存
+    $cache_id = md5_plus("template_getShowpage_" . implode("-", $tag));
+    $template_cache_data = Cache::get($cache_id);
+    if ($tag['iscache'] == 1 && $template_cache_data) {
+        return $template_cache_data;
+    } else {
+
+        $page_content_data=get_cz_pages($tag['total'],$tag['limit'],$tag['show_style'],$tag['css_style']);
+        $web_config = get_web_config();
+        Cache::set($cache_id, $page_content_data, $web_config["cache_expire"]);
+        return $page_content_data;
 
     }
 }

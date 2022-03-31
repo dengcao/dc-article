@@ -1,0 +1,56 @@
+@charset "utf-8";
+ @media (max-width: 1219px) {
+.box { width: 96% }
+.menu dd { width: 19% }
+.menu dd a { margin: 0 0 5px; }
+}
+ @media (max-width: 991px) {
+.menu dl { width: 100% }
+.news_r, .side { display: none }
+.news_l { width: 46% }
+.news_m { width: 46% }
+.news_box_left, .box_l { width: 100% }
+.tb_tags li { width: 20% }
+header { background: #fff; position: fixed; top: 0; z-index: 999; padding-top: 0; border-bottom: #eee 1px solid; box-shadow: none; height: 50px }
+.logo img { margin: 6px 0 0 0; height: 30px }
+.top_head { height: 50px }
+#mnavh { display: block; position: fixed; right: 0; top: 0; }
+nav { background: none; height: auto; padding-left: 0; margin-top: 0; box-shadow: none }
+nav #starlist { background: #00c9a5; overflow: hidden; width: 100%; padding: 30px 0 0; }
+#starlist { display: none }
+#starlist li { width: 33.333%; line-height: normal; font-size: 16px; overflow: hidden; float: left; height: auto; }
+#starlist li a { text-align: center; color: #fff; font-size: 17px; display: block; width: auto; margin: 15px; border: #fff 1px solid; padding: 15px; font-weight: normal; }
+#starlist li a:hover { background: #ff7d0e; text-decoration: none; }
+#starlist li:hover, nav li:hover a { text-decoration: none; }
+#starlist li:last-child { padding-bottom: 100%; }
+a#selected { background: none; }
+.search { width: 300px; margin: 10px 50px 0 0; }
+.search input.input_text { height: 30px; line-height: 30px; }
+.mtop { height: 50px; }
+.menu dd { width: 20% }
+}
+ @media (max-width: 767px) {
+.news_l { width: 100%; }
+.news_m { width: 100%; margin: 20px 0 }
+.news_pic li { width: 100%; margin: 10px 0 }
+.tb_tags li { width: 25%; }
+.banner { background-size: cover }
+.banner h3 { font-size: 50px; margin-top: 50px; }
+.banner h5 { font-size: 20px }
+.is-search { display: block }
+.search { display: none }
+.search { width: 70%; position: fixed; left: 10px; }
+}
+ @media (max-width: 640px) {
+#starlist li { width: 50% }
+.banner { height: 200px; background: url(../images/banner.jpg) no-repeat center right; background-size: cover; }
+.banner h3 { font-size: 32px; }
+.banner h5 { font-size: 14px; line-height: 30px; }
+.menu dt { margin: 5px 10px 30px 0; }
+.menu { overflow: hidden; }
+.menu dd { width: 27%; }
+.news_list li { width: 100% }
+.news_pic li h3 { font-size: 15px; }
+.page_news li span { display: none }
+.tb_tags li { width: 50%; }
+}

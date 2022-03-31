@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>搜索：{$keyword} - {$web_config.site_name}</title>
+<meta name="keywords" content="{$keyword}" />
+<meta name="description" content="搜索{$keyword}的结果（{$web_config.site_name}）" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="__CAOZHA-SKIN__/green/css/base.css" rel="stylesheet">
+<link href="__CAOZHA-SKIN__/green/css/m.css" rel="stylesheet">
+<link href="__CAOZHA-SKIN__/green/css/swiper.min.css" rel="stylesheet">
+<script src="__CAOZHA-SKIN__/green/js/jquery-3.6.0.min.js" ></script>
+<script src="__CAOZHA-SKIN__/green/js/comm.js"></script>
+<!-- Swiper JS -->
+<script src="__CAOZHA-SKIN__/green/js/swiper.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="top_head box">
+    <div class="logo"><a href="/" target="_blank"><img src="__CAOZHA-SKIN__/green/images/logo.png" alt=""></a></div>
+    <div class="search">
+      <form action="{:dc_url('index/article/search')}" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <!--search end--> 
+  </div>
+  <div class="clear"></div>
+  <nav>
+   <ul id="starlist" class="box">
+     <li><a href="/">首页</a></li>
+     {dc:category name='cat' fields='catid,catname,url' parentid='0' limit='0,10' orderby='' iscache="1"}
+     <li><a href="{:art_cat_url($cat.url,$cat.catid)}">{$cat.catname}</a></li>
+     {/dc:category}
+    </ul>
+    <div id="mnavh"><span class="navicon"></span></div>
+  </nav>  
+</header><div class="mtop"></div>
+<div class="box">
+  <div class="weizhi">当前位置：<a href="/" target="_blank">首页</a> > 搜索：{$keyword}
+    </div>
+  <div class="box_l">
+    <div class="page_news">
+      <ul>
+        {foreach $article_list as $key=>$vo }
+        <li><a href="{:art_url($vo.url,$vo.id)}" target="_blank"><span>{$vo.inputtime|raw}</span>{$vo.title|raw}</a></li>
+        {/foreach}
+      </ul>
+    </div>
+    <div class="pagelist">
+      {dc:showpage total='$page_total' limit='$page_limit' show_style='1' css_style='3'}
+    </div>
+  </div>
+  <div class="box_r">
+    <div class="side">
+      <h3 class="side_title">热门推荐</h3>
+      <ul class="hot_news">
+        {php}$hot_i=0;{/php}
+        {dc:article name='art' fields='id,title,url' islink='0' orderby='hits desc,inputtime desc,id desc' limit='0,10' iscache="1"}
+        {php}$hot_i+=1;{/php}
+        <li><i>{$hot_i}</i><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/dc:article}
+      </ul>
+    </div>
+    <div class="side">
+      <h3 class="side_title">猜你喜欢</h3>
+      <ul class="dot">
+        {dc:get name='art' fields='id,title,url' datatable='article' limit='0,10' orderby='rand()' iscache="1"}
+        <li><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/dc:get}
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<footer>
+  <div class="box">
+    {$web_config.site_footer|raw|stripslashes}
+  </div>
+</footer>
+<a href="#" title="返回顶部" class="icon-top"></a>
+<script>
+  //统计代码
+  $(function () {
+    //延迟统计, 以免影响页面载入
+    var cnzz = document.createElement("script");
+    cnzz.src = '{dc:block marker="tj_url" is_strip="1" is_decode="1" iscache="1"}';
+    document.getElementsByTagName('body')[0].appendChild(cnzz);
+  });
+</script>
+</body>
+</html>

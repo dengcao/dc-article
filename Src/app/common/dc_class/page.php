@@ -12,6 +12,8 @@
  * #page a{float:left;margin:0 3px;border:1px solid #ddd;padding:3px 7px; text-decoration:none;color:#666}
  * #page a.now_page,#page a:hover{color:#fff;background:#05c}
  */
+namespace app\common\dc_class;
+
 class page {
     public $first_row;
     //起始行数

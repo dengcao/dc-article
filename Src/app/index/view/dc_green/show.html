@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>{$article.title}_{$article.cat_catname}|{$web_config.site_name}</title>
+<meta name="keywords" content="{$article.keywords}" />
+<meta name="description" content="{$article.description|raw}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="__CAOZHA-SKIN__/green/css/base.css" rel="stylesheet">
+<link href="__CAOZHA-SKIN__/green/css/m.css" rel="stylesheet">
+<link href="__CAOZHA-SKIN__/green/css/swiper.min.css" rel="stylesheet">
+<script src="__CAOZHA-SKIN__/green/js/jquery-3.6.0.min.js" ></script>
+<script src="__CAOZHA-SKIN__/green/js/comm.js"></script>
+<!-- Swiper JS -->
+<script src="__CAOZHA-SKIN__/green/js/swiper.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="top_head box">
+    <div class="logo"><a href="/" target="_blank"><img src="__CAOZHA-SKIN__/green/images/logo.png" alt=""></a></div>
+    <div class="search">
+      <form action="{:dc_url('index/article/search')}" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <!--search end--> 
+  </div>
+  <div class="clear"></div>
+  <nav>
+   <ul id="starlist" class="box">
+     <li><a href="/">首页</a></li>
+     {dc:category name='cat' fields='catid,catname,url' parentid='0' limit='0,10' orderby='' iscache="1"}
+     <li><a href="{:art_cat_url($cat.url,$cat.catid)}">{$cat.catname}</a></li>
+     {/dc:category}
+    </ul>
+    <div id="mnavh"><span class="navicon"></span></div>
+  </nav>  
+</header><div class="mtop"></div>
+<div class="box">
+  <div class="weizhi">当前位置：<a href="/">首页</a>{:art_get_nav($article.catid)} > 正文</div>
+  <div class="box_l">
+    <article>
+      <h1 class="ar_title">{$article.title}</h1>
+      <div class="ar_info">{if $article.author}<span class="po-from">作者：{$article.author|raw}</span>{/if}{if $article.copyfrom}<span class="po-copyfrom"><a href="{$article.copyfrom|raw}" target="_blank" style="color:#888;">来源</a></span>{/if}<span>{$article.inputtime}</span><span><a href="/list/{$article.catid}" target="_blank">{$article.cat_catname}</a></span><span>阅读 {$article.hits}</span></div>
+      {if $article.description!=""}<div class="smalltext"><i></i>{$article.description|raw|stripslashes}</div>{/if}
+      <div class="content">
+        {$article.content|raw|stripslashes}
+      </div>
+       <div class="tags_list">
+         {php}
+                    if($article["tags"]){
+                    $tags_arr=explode(",",$article["tags"]);
+                    foreach ($tags_arr as $value){
+                    echo "<a href='".dc_url("index/article/search")."?keyword=".$value."' target='_blank'>".$value."</a> ";
+                    }
+                }
+                    {/php}
+         </div>
+   
+      <div class="info-pre-next">
+        <ul>
+
+            {php}$where_previous=" catid=".$article["catid"]." and inputtime>'".$article["inputtime"]."' ";{/php}
+            {dc:get name='art' fields='id,title,url' datatable='article' where='$where_previous' limit='0,1' orderby='inputtime asc' iscache="1"}
+          <li>上一篇：<a href="{:art_url($art.url,$art.id)}">{$art.title}</a></li>
+            {/dc:get}
+
+
+            {php}$where_next=" catid=".$article["catid"]." and inputtime<'".$article["inputtime"]."' ";{/php}
+            {dc:get name='art' fields='id,title,url' datatable='article' where='$where_next' limit='0,1' orderby='inputtime desc' iscache="1"}
+          <li>下一篇：<a href="{:art_url($art.url,$art.id)}">{$art.title}</a></li>
+            {/dc:get}
+
+        </ul>
+      </div>
+      
+      <div class="other">
+        <h5>相关推荐</h5>
+      <ul class="news_dot">
+      <!--随机-->
+        {dc:get name='art' fields='id,title,url' datatable='article' where='' limit='0,12' orderby='rand()' iscache="1"}
+        <li><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/dc:get}
+    </ul>
+      </div>
+      
+    </article>
+  </div>
+  <div class="box_r">
+    <div class="side">
+      <h3 class="side_title">最新推荐</h3>
+      <ul class="hot_news">
+        {php}$cut_catid=$article["catid"];$hot_i=0;{/php}
+        {dc:article name='art' fields='id,title,url' islink='0' catid='$cut_catid' orderby='inputtime desc,id desc' limit='0,10' iscache="1"}
+        {php}$hot_i+=1;{/php}
+        <li><i>{$hot_i}</i><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/dc:article}
+      </ul>
+    </div>
+    <div class="side">
+      <h3 class="side_title">热门点击</h3>
+      <ul class="dot">
+        {dc:article name='art' fields='id,title,url' islink='0' catid='$cut_catid' orderby='hits desc,inputtime desc,id desc' limit='0,10' iscache="1"}
+        <li><a href="{:art_url($art.url,$art.id)}" target="_blank">{$art.title}</a></li>
+        {/dc:article}
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<footer>
+  <div class="box">
+    {$web_config.site_footer|raw|stripslashes}
+  </div>
+</footer>
+<a href="#" title="返回顶部" class="icon-top"></a>
+<script>
+  //统计代码
+  $(function () {
+    //延迟统计, 以免影响页面载入
+    var cnzz = document.createElement("script");
+    cnzz.src = '{dc:block marker="tj_url" is_strip="1" is_decode="1" iscache="1"}';
+    document.getElementsByTagName('body')[0].appendChild(cnzz);
+  });
+</script>
+</body>
+</html>

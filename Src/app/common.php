@@ -9,6 +9,8 @@
 
 // 应用公共文件
 
+use app\common\dc_class\page as dc_page;
+
 /**
  * 获取评论的表情包
  * @return array
@@ -94,7 +96,7 @@ function comment_face(){
 //应用的名称及版本
 $GLOBALS["caozha_common_config"] = [
     "name" => "dc-article",
-    "version" => "1.2.1",
+    "version" => "1.3.0",
     "gitee" => "caozha/dc-article",
     "github" => "cao-zha/dc-article",
 ];
@@ -156,13 +158,20 @@ function get_cz_pages($total_rows,$list_rows,$show_style=1,$css_style=1){
 #cz_page a.now_page,#cz_page a:hover{color:#fff;background:#000}
 #goto_page{padding:4px 0px;}
 </style>',
+        "s3"=>'<style type="text/css">
+#cz_page{font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif;text-align:center;}
+#cz_page span{margin:0px 3px;}
+#cz_page a{margin:5px 3px;border:1px solid #F7F7F7;padding:5px 10px; text-decoration:none;display:inline-block;color:#666;background:#F7F7F7}
+#cz_page a.now_page,#cz_page a:hover{color:#fff;background:#00c8a3}
+#goto_page{padding:4px 0px;}
+</style>',
     );
-    include 'common/class/page.class.php';
+
     $options = array(
         'total_rows' => $total_rows,
         'list_rows'  => $list_rows,
     );
-    $pages = new page($options);
+    $pages = new dc_page($options);
     $pages_html="<div id=\"cz_page\">".$pages->show($show_style)."</div>"; //打印样式,1,2,3,4
     return $css_styles["s".$css_style].$pages_html;
 }

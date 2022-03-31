@@ -45,6 +45,8 @@ class Article
             if ($article_list_cache_data) {
                 $list=$article_list_cache_data;
                 $pages = Cache::get($article_list_cache_id."_pages");
+                $page_total=Cache::get($article_list_cache_id."_page_total");
+                $page_limit=Cache::get($article_list_cache_id."_page_limit");
             } else {
                 $list=Db::name('article');
                 $list=$list->alias('a')->leftJoin('category c','a.catid = c.catid');
@@ -72,13 +74,19 @@ class Article
                 // 获取分页显示
                 //$pages = $list->render();
                 $pages = get_cz_pages($list->total(),$limit,1,2);
+                $page_total=$list->total();
+                $page_limit=$limit;
 
                 Cache::set($article_list_cache_id, $list, $web_config["cache_expire"]);
                 Cache::set($article_list_cache_id."_pages", $pages, $web_config["cache_expire"]);
+                Cache::set($article_list_cache_id."_page_total", $page_total, $web_config["cache_expire"]);
+                Cache::set($article_list_cache_id."_page_limit", $page_limit, $web_config["cache_expire"]);
             }
             View::assign([
                 'article_list' => $list,
                 'pages' => $pages,
+                'page_total' => $page_total,
+                'page_limit' => $page_limit,
             ]);
             $templates_default=$site_style."/list";//默认模板
 
@@ -116,7 +124,7 @@ class Article
 
         $page=Request::param("p");
         if(!is_numeric($page)){$page=1;}
-        $limit=10;//每页显示数
+        $limit=15;//每页显示数
 
         //优先读取缓存
         $article_list_cache_id=md5_plus("article_search_".$keyword."_".$page."_".$limit);
@@ -124,6 +132,8 @@ class Article
         if ($article_list_cache_data) {
             $list=$article_list_cache_data;
             $pages = Cache::get($article_list_cache_id."_pages");
+            $page_total=Cache::get($article_list_cache_id."_page_total");
+            $page_limit=Cache::get($article_list_cache_id."_page_limit");
         }elseif($keyword) {
             $list=Db::name('article');
             $list=$list->alias('a')->leftJoin('category c','a.catid = c.catid');
@@ -139,12 +149,18 @@ class Article
             // 获取分页显示
             //$pages = $list->render();
             $pages = get_cz_pages($list->total(),$limit,1,2);
+            $page_total=$list->total();
+            $page_limit=$limit;
 
             Cache::set($article_list_cache_id, $list, $web_config["cache_expire"]);
             Cache::set($article_list_cache_id."_pages", $pages, $web_config["cache_expire"]);
+            Cache::set($article_list_cache_id."_page_total", $page_total, $web_config["cache_expire"]);
+            Cache::set($article_list_cache_id."_page_limit", $page_limit, $web_config["cache_expire"]);
         }else{
             $list=array();
             $pages="";
+            $page_total=0;
+            $page_limit=15;
         }
 
         $web_config=get_web_config();
@@ -152,6 +168,8 @@ class Article
         View::assign([
             'article_list' => $list,
             'pages' => $pages,
+            'page_total' => $page_total,
+            'page_limit' => $page_limit,
             'keyword' => $keyword,
             'web_config' => $web_config,
         ]);

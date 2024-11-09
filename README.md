@@ -1,4 +1,4 @@
-# dc-article 文章内容管理系统 1.3.0
+# dc-article 文章内容管理系统 1.4.0
 
 dc-article是一个通用的文章内容管理系统，基于开源的caozha-admin开发，采用前后端分离的模板和标签化方式，支持文章内容管理、栏目分类管理、评论管理、友情链接管理、碎片管理、远程图片获取器等功能。可以使用本系统很轻松地架构新闻类网站、文章类网站、图片展示类网站或个人博客网站。系统特点：易上手，零门槛，拿来即用，界面清爽极简，极便于二次开发。
 
@@ -39,7 +39,7 @@ dc-article是一个通用的文章内容管理系统，基于开源的caozha-adm
 
 **开发环境**
 
-本人开发此系统使用的本地环境是：[phpstudy8.1集成工具（已集成php8.0.14nts/php8.1.1nts，有需要点击下载）](https://gitee.com/caozha/php8.0-8.1-for-phpstudy)，phpMyAdmin 4.8.5，Apache2.4.39（或Nginx1.15.11），PHP8.0.14，MySQL5.7.26。
+本人开发此系统使用的本地环境是：[phpstudy8.1集成工具（已集成php8.0.14nts/php8.1.1nts，有需要点击下载）](https://gitee.com/dengzhenhua/php8.0-8.1-for-phpstudy)，phpMyAdmin 4.8.5，Apache2.4.39（或Nginx1.15.11），PHP8.0.14，MySQL5.7.26。
 
 事实上，您不需要使用跟以上完全一致的环境也可以正常运行本系统，理论上只要PHP>=8.0即可。如有不兼容，建议模拟本环境测试，并欢迎您提建议和反馈BUG。
 
@@ -54,7 +54,7 @@ dc-article是一个通用的文章内容管理系统，基于开源的caozha-adm
 
 4、修改文件/config/database.php，配置您的数据库信息（如果测试时启用了/.env，还需要修改文件/.env，系统会优先使用此配置文件）。
 
-5、后台访问地址：http://您的域名/admin.php   (账号：caozha   密码：123456)
+5、后台访问地址：http://您的域名/admin.php   (账号：dengcao   密码：123456)
 
 6、文章系统采用了缓存机制，所以后台添加、修改或更新了文章和设置后，必须点击后台右上角的“回收站”按钮，清空缓存。不清空缓存，前台页面不会更新。（当然您也可以在后台“系统设置”里关闭页面缓存。）
 
@@ -266,9 +266,9 @@ is_decode：HTML实体是否转换为字符，1=转换，不设置或设置其�
 
 ### 2、本系统基于caozha-admin开发，二次开发可参考此手册
 
-码云Wiki：[https://gitee.com/caozha/caozha-admin/wikis](https://gitee.com/caozha/caozha-admin/wikis)
+码云Wiki：[https://gitee.com/dengzhenhua/caozha-admin/wikis](https://gitee.com/dengzhenhua/caozha-admin/wikis)
 
-GitHub Wiki：[https://github.com/cao-zha/caozha-admin/wiki](https://github.com/cao-zha/caozha-admin/wiki)
+GitHub Wiki：[https://github.com/dengcao/caozha-admin/wiki](https://github.com/dengcao/caozha-admin/wiki)
 
 
 ### 3、提供了两套不同的网站风格
@@ -317,6 +317,12 @@ GitHub Wiki：[https://github.com/cao-zha/caozha-admin/wiki](https://github.com/
 
 2、修复了Ueditor一个小BUG。
 
+**版本1.4.0，主要更新：**
+
+1、更新框架到ThinkPHP6.0.15。
+
+2、修改了一些后台更新。
+
 
 ## 特别鸣谢
 
@@ -330,15 +336,15 @@ caozha-admin、ThinkPHP、layui、layuimini、font-awesome、phpoffice、phpMail
 
 支持本程序，请到Gitee和GitHub给我们点Star！
 
-Gitee：https://gitee.com/caozha/dc-article
+Gitee：https://gitee.com/dengzhenhua/dc-article
 
-GitHub：https://github.com/cao-zha/dc-article
+GitHub：https://github.com/dengcao/dc-article
 
-## 关于开发者
+### 关于
 
-开发：邓草 www.caozha.com
+开发：[邓草博客 blog.5300.cn](http://blog.5300.cn)
 
-鸣谢：品络 www.pinluo.com  &ensp;  穷店 www.qiongdian.com
+赞助：[品络互联 www.pinluo.com](http://www.pinluo.com)  &ensp;  [AI工具箱 5300.cn](http://5300.cn)  &ensp;  [汉语言文学网 hyywx.com](http://hyywx.com)  &ensp;  [雄马 xiongma.cn](http://xiongma.cn) &ensp;  [优惠券 tm.gs](http://tm.gs)
 
 
 ## 界面预览
@@ -347,7 +353,7 @@ GitHub：https://github.com/cao-zha/dc-article
 **前台页面：**
 
 
-演示网址：http://caozha.com
+演示网址：http://5300.cn/myblog
 
 
 **蓝色风格：**

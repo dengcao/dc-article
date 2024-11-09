@@ -52,7 +52,7 @@ CREATE TABLE `dc_art_administrators` (
 --
 
 INSERT INTO `dc_art_administrators` (`admin_id`, `admin_name`, `admin_password`, `admin_password_rnd`, `role_id`, `is_enabled`, `real_name`, `tel`, `email`, `wechat`, `qq`, `last_login_ip`, `last_login_time`, `last_logout_time`, `login_times`, `admin_remarks`) VALUES
-(1, 'caozha', '5fd9cd58f4e516bae46557b355c5208a', NULL, 1, 1, '草札', '1320000000', 'dzh188@qq.com', 'wx', 'qq', '127.0.0.1', '2022-03-31 15:50:26', '2022-03-22 01:19:27', 129, '');
+(1, 'dengcao', '5fd9cd58f4e516bae46557b355c5208a', NULL, 1, 1, '邓草', '1320000000', 'dzh188@qq.com', 'wx', 'qq', '127.0.0.1', '2022-03-31 15:50:26', '2022-03-22 01:19:27', 129, '');
 
 -- --------------------------------------------------------
 

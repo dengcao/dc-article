@@ -319,9 +319,9 @@ GitHub Wiki：[https://github.com/dengcao/caozha-admin/wiki](https://github.com/
 
 **版本1.4.0，主要更新：**
 
-1、更新框架到ThinkPHP6.0.15。
+1、为了系统安全，更新TP框架到6.0系列的最新版本：ThinkPHP6.0.15。
 
-2、修改了一些后台更新。
+2、修改了后台若干错误链接。
 
 
 ## 特别鸣谢

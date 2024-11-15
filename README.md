@@ -323,6 +323,10 @@ GitHub Wiki：[https://github.com/dengcao/caozha-admin/wiki](https://github.com/
 
 2、修改了后台若干错误链接。
 
+**版本1.4.1，主要更新：**
+
+更新一个css文件，修复当手机访问时不显示“提交”按钮的问题。
+
 
 ## 特别鸣谢
 
